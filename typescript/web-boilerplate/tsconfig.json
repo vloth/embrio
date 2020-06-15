@@ -6,7 +6,7 @@
     "strict": true,
     "resolveJsonModule": true,
     "paths": {
-        "@logger": ["./src/logger.ts"]
+        "@logger": ["./src/infra/logger.ts"]
     },
     "noImplicitAny": true,
     "strictNullChecks": true,

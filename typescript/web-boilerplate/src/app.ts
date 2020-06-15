@@ -1,17 +1,21 @@
 import * as Koa from 'koa'
 import * as bodyparser from 'koa-bodyparser'
+
 import { logger } from '@logger'
+import { errorHandler } from './infra/http/error-middleware'
+import { router as todoRouter } from './todo/router'
 
 export const app = new Koa()
 
 app.use(bodyparser())
+app.use(errorHandler)
+app.use(todoRouter.routes())
 
-async function crash() {
-  throw Error('blah')
-}
-
-app.use(async ctx => {
-  logger.info({ body: ctx.request.body }, 'processing body...')
-  crash()
-  ctx.body = 'Hello from Koa ;)'
+app.on('error', (reason: Error, ctx: Koa.Context) => {
+  logger.error(
+    reason,
+    'An error happened at %s, response code:',
+    ctx.request.url,
+    ctx.status
+  )
 })
