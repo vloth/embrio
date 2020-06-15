@@ -11,11 +11,12 @@ app.use(bodyparser())
 app.use(errorHandler)
 app.use(todoRouter.routes())
 
-app.on('error', (reason: Error, ctx: Koa.Context) => {
+app.on('error', (err: Error, ctx: Koa.Context) => {
+  const [path, status] = [ctx.request.url, ctx.status]
   logger.error(
-    reason,
-    'An error happened at %s, response code:',
-    ctx.request.url,
-    ctx.status
+    { err, path, status },
+    'An error happened at %s, response (%d)',
+    path,
+    status
   )
 })

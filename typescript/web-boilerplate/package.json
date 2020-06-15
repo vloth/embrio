@@ -7,7 +7,7 @@
     "start": "tsnd --clear --no-notify src/index.ts | pino-pretty",
     "start:prod": "node src",
     "build": "tsc",
-    "build:clean": "rm -rf ./src/*.js",
+    "build:clean": "find src -type f -name '*.js' -exec rm {} \\;",
     "lint": "eslint"
   },
   "dependencies": {
