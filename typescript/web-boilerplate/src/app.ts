@@ -1,7 +1,7 @@
 import * as Koa from 'koa'
 import * as bodyparser from 'koa-bodyparser'
 
-import { logger } from '@logger'
+import { logger } from '@infra/logger'
 import { errorHandler } from './infra/http/error-middleware'
 import { router as todoRouter } from './todo/router'
 

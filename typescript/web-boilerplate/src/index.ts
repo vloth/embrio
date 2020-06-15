@@ -1,7 +1,7 @@
 import 'module-alias/register'
 
 import { app } from './app'
-import { logger } from '@logger'
+import { logger } from '@infra/logger'
 
 process
   .on('unhandledRejection', (reason: string) => {

@@ -1,7 +1,7 @@
 import * as Router from 'koa-router'
-import { decodeP } from '../infra/codec/decode'
+import { decodeP } from '@infra/codec/decode'
+import { logger } from '@infra/logger'
 import { Todo, isDue } from './Todo'
-import { logger } from '@logger'
 
 export const router = new Router({ prefix: '/api/todo' })
 

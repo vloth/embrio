@@ -37,6 +37,6 @@
     "typescript": "^3.9.5"
   },
   "_moduleAliases": {
-    "@logger": "./src/infra/logger"
+    "@infra": "./src/infra/"
   }
 }
