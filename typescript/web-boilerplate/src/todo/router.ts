@@ -1,4 +1,6 @@
 import * as Router from 'koa-router'
+import { decodeP } from '../infra/codec/decode'
+import { Todo, isDue } from './Todo'
 import { logger } from '@logger'
 
 export const router = new Router({ prefix: '/api/todo' })
@@ -13,7 +15,10 @@ router
     await crash()
     ctx.body = []
   })
-  .post('/', ctx => {
-    logger.info({ body: ctx.request.body }, 'processing body...')
-    ctx.body = 'Hello from Koa ;)'
+  .post('/', async ctx => {
+    const todo = await decodeP(Todo, ctx.request.body)
+    if (isDue(todo)) {
+      logger.info({ when: todo.due.getFullYear() }, 'due todo')
+    }
+    ctx.body = todo
   })

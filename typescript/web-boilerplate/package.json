@@ -11,6 +11,10 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "fp-ts": "^2.6.5",
+    "io-ts": "^2.2.5",
+    "io-ts-reporters": "^1.1.0",
+    "io-ts-types": "^0.5.7",
     "koa": "^2.12.1",
     "koa-router": "^9.0.1",
     "module-alias": "^2.2.2",

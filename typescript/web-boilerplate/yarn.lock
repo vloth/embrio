@@ -897,6 +897,11 @@ flatted@^2.0.0:
   resolved "https://registry.yarnpkg.com/flatted/-/flatted-2.0.2.tgz#4575b21e2bcee7434aa9be662f4b7b5f9c2b5138"
   integrity sha512-r5wGx7YeOwNWNlCA0wQ86zKyDLMQr+/RB8xy74M4hTphfmjlijTSSXGuH8rnvKZnfT9i+75zmd8jcKdMR4O6jA==
 
+fp-ts@^2.0.2, fp-ts@^2.6.5:
+  version "2.6.5"
+  resolved "https://registry.yarnpkg.com/fp-ts/-/fp-ts-2.6.5.tgz#da4c369626ff3f4bb1518f8459b226fc19eb8e3c"
+  integrity sha512-lQNzOMJj98b623+UZLQ+tnN/8qtNXz/vRoR9k7L/9OlUIyYH3qVzSUVZBDXYsAd7nOWzzdQALCX1ZqcF70altQ==
+
 fresh@~0.5.2:
   version "0.5.2"
   resolved "https://registry.yarnpkg.com/fresh/-/fresh-0.5.2.tgz#3d8cadd90d976569fa835ab1f8e4b23a105605a7"
@@ -1065,6 +1070,24 @@ inquirer@^7.0.0:
     string-width "^4.1.0"
     strip-ansi "^6.0.0"
     through "^2.3.6"
+
+io-ts-reporters@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/io-ts-reporters/-/io-ts-reporters-1.1.0.tgz#c3227442bdcc84e46e9df1d6426a8c74bf9dc1c8"
+  integrity sha512-0pwIKTWqlUMYg59hqcBCtE64aYoL38YD0TLrmVUVg1m9PmNwE5ISyzPSAGbbKvLcHR2lqy6YqZ3w7z/yIT5ZWw==
+  dependencies:
+    fp-ts "^2.0.2"
+    io-ts "^2.0.0"
+
+io-ts-types@^0.5.7:
+  version "0.5.7"
+  resolved "https://registry.yarnpkg.com/io-ts-types/-/io-ts-types-0.5.7.tgz#adf5621f5c1dabfa99f7a52c6424ff4ae4faebd5"
+  integrity sha512-3AN63MewxiYhJeQ+/RirPMbAM3DBn2tv2VOCHG2dc1DZOzM2JmH87TxJukfIbWICcJ0aYvncz0nAV7jverCkcQ==
+
+io-ts@^2.0.0, io-ts@^2.2.5:
+  version "2.2.5"
+  resolved "https://registry.yarnpkg.com/io-ts/-/io-ts-2.2.5.tgz#c402baf3c1d1584561cd215a1abaccc0baf4718e"
+  integrity sha512-ctkzWw78sol75+KNkCrTjjgWwLjG77LzUNaelPbcJVao7THmmTIr6hW+rGJPK2EMtG1Pkt/G1sJVYyylEaOwPw==
 
 is-arrayish@^0.2.1:
   version "0.2.1"
