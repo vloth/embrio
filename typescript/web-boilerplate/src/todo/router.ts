@@ -8,13 +8,12 @@ export const router = new Router({ prefix: '/api/todo' })
   .get('/', getTodo)
   .post('/', postTodo)
 
-async function getTodo(ctx: Context) {
-  async function crash() {
-    throw Error('WUT')
+export function getTodo(ctx: Context) {
+  if (isDue(null)) {
+    ctx.body = 'foo'
+    return
   }
-  logger.info({ body: ctx.request.body }, 'processing body...')
-  await crash()
-  ctx.body = []
+  ctx.body = 'bar'
 }
 
 async function postTodo(ctx: Context) {

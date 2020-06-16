@@ -1,0 +1,10 @@
+extension:
+  - ts
+file:
+  - test/setup.ts
+require: 
+  - ts-node/register/transpile-only
+ui: qunit
+inline-diffs: true
+globals": 
+  - td

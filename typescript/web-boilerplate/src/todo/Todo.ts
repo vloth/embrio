@@ -18,6 +18,6 @@ type DueTodo = t.TypeOf<typeof DueTodo>
 type FutureTodo = t.TypeOf<typeof FutureTodo>
 type Todo = t.TypeOf<typeof Todo>
 
-const isDue = (todo: Todo): todo is DueTodo => todo.done
+const isDue = (todo: Todo | null): todo is DueTodo => todo != null && todo.done
 
 export { Todo, DueTodo, FutureTodo, isDue }
