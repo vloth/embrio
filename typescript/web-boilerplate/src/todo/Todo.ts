@@ -1,23 +1,23 @@
 import * as t from 'io-ts'
 import { DateFromISOString } from 'io-ts-types/lib/DateFromISOString'
+import { date } from 'io-ts-types/lib/date'
 
-const DueTodo = t.type({
+export const DueTodo = t.type({
   description: t.string,
   done: t.literal(true),
-  due: DateFromISOString
+  duedate: t.union([DateFromISOString, date])
 })
 
-const FutureTodo = t.type({
+export const FutureTodo = t.type({
   description: t.string,
   done: t.literal(false)
 })
 
-const Todo = t.readonly(t.union([FutureTodo, DueTodo]))
+export const Todo = t.readonly(t.union([FutureTodo, DueTodo]))
 
-type DueTodo = t.TypeOf<typeof DueTodo>
-type FutureTodo = t.TypeOf<typeof FutureTodo>
-type Todo = t.TypeOf<typeof Todo>
+export type DueTodo = t.TypeOf<typeof DueTodo>
+export type FutureTodo = t.TypeOf<typeof FutureTodo>
+export type Todo = t.TypeOf<typeof Todo>
 
-const isDue = (todo: Todo | null): todo is DueTodo => todo != null && todo.done
-
-export { Todo, DueTodo, FutureTodo, isDue }
+export const isDue = (todo: Todo | null): todo is DueTodo =>
+  todo != null && todo.done

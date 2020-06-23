@@ -1,6 +1,7 @@
 import * as t from 'io-ts'
-import { fold } from 'fp-ts/lib/Either'
+import { fold, either } from 'fp-ts/lib/Either'
 import { pipe } from 'fp-ts/lib/pipeable'
+import { array } from 'fp-ts/lib/Array'
 import { reporter } from 'io-ts-reporters'
 
 export class DecodeError extends Error {
@@ -14,15 +15,43 @@ export function decodeP<T, O, I>(
   validator: t.Type<T, O, I>,
   input: I
 ): Promise<T> {
-  const result = validator.decode(input)
-  return pipe(
-    result,
-    fold(
-      () => {
-        const messages = reporter(result)
-        return Promise.reject(new DecodeError(messages.join('\n')))
-      },
-      value => Promise.resolve(value)
+  return new Promise((resolve, reject) => {
+    try {
+      resolve(decode(validator)(input))
+    } catch (error) {
+      reject(error)
+    }
+  })
+}
+
+export function decode<T, O, I>(validator: t.Type<T, O, I>) {
+  return function decode(input: I) {
+    const result = validator.decode(input)
+    return pipe(
+      result,
+      fold(
+        () => {
+          const messages = reporter(result)
+          throw new DecodeError(messages.join('\n'))
+        },
+        value => value
+      )
     )
-  )
+  }
+}
+
+export function decodeSeq<T, O, I>(validator: t.Type<T, O, I>) {
+  return function decodeSeq(input: Array<I>) {
+    const result = array.traverse(either)(input, validator.decode)
+    return pipe(
+      result,
+      fold(
+        () => {
+          const messages = reporter(result)
+          throw new DecodeError(messages.join('\n'))
+        },
+        value => value
+      )
+    )
+  }
 }

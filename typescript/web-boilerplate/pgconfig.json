@@ -1,0 +1,16 @@
+{
+  "transforms": [
+    {
+      "mode": "sql",
+      "include": "**/*.sql",
+      "emitTemplate": "{{dir}}/{{name}}.queries.ts"
+    }
+  ],
+  "srcDir": "./src/",
+  "failOnError": false,
+  "db": {
+    "host": "127.0.0.1",
+    "user": "postgres",
+    "dbName": "my-app"
+  }
+}
