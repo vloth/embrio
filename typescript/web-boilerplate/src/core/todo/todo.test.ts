@@ -1,11 +1,24 @@
 import { expect, td, mock } from '@test'
-import * as RouterModule from './router'
-import * as TodoModule from './Todo'
+import type * as RouterModule from './http.transport'
+import type * as TodoModule from './core.adapter'
 
 suite('todo')
 
-const Todo: typeof TodoModule = td.replace('./Todo')
-const router: typeof RouterModule = require('./router')
+/*
+console.time('td-mock')
+const Todo: typeof TodoModule = td.replace(
+  './core.adapter',
+  td.object<typeof RouterModule>()
+)
+console.timeEnd('td-mock')
+*/
+///*
+console.time('td-mock')
+const Todo: typeof TodoModule = td.replace('./core.adapter')
+console.timeEnd('td-mock')
+//*/
+
+const router: typeof RouterModule = require('./http.transport')
 
 test('mocked', () => {
   td.when(Todo.isDue(null)).thenReturn(true)

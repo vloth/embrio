@@ -55,7 +55,8 @@
     "typescript": "^3.9.5"
   },
   "_moduleAliases": {
-    "@infra": "./src/infra/",
+    "@adapter": "./src/adapter/",
+    "@protocol": "./src/protocol/",
     "@test": "./test/helper"
   }
 }

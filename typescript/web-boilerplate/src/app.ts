@@ -1,9 +1,9 @@
 import * as Koa from 'koa'
 import * as bodyparser from 'koa-bodyparser'
 
-import { logger } from '@infra/logger'
-import { errorHandler } from './infra/http/error-middleware'
-import { router as todoRouter } from './todo/router'
+import { logger } from '@protocol/logger'
+import { errorHandler } from './transport/http/error-middleware'
+import { router as todoRouter } from './core/todo/http.transport'
 
 export const app = new Koa()
 

@@ -1,13 +1,13 @@
 import 'module-alias/register'
 
 import { app } from './app'
-import { logger } from '@infra/logger'
+import { logger } from '@protocol/logger'
 
 process
-  .on('unhandledRejection', (reason: string) => {
+  .on('unhandledRejection', reason => {
     throw reason
   })
-  .on('uncaughtException', (reason: Error) => {
+  .on('uncaughtException', reason => {
     logger.fatal(reason, 'Exiting application due to an uncaught exception')
     process.exit(1)
   })

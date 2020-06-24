@@ -6,7 +6,8 @@
     "strict": true,
     "resolveJsonModule": true,
     "paths": {
-        "@infra/*": ["./src/infra/*"],
+        "@adapter/*": ["./src/adapter/*"],
+        "@protocol/*": ["./src/protocol/*"],
         "@test": ["./test/helper"]
     },
     "noImplicitAny": true,
