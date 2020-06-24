@@ -3,6 +3,7 @@ import * as Router from 'koa-router'
 import { decodeP } from '@adapter/codec/decode'
 import { logger } from '@protocol/logger'
 import { Todo, isDue } from './core.adapter'
+import { newId } from '@adapter/HexId'
 
 export const router = new Router()
   .get('/api/todo', getTodo)
@@ -10,7 +11,7 @@ export const router = new Router()
 
 export function getTodo(ctx: Context) {
   if (isDue(null)) {
-    ctx.body = 'foo'
+    ctx.body = newId()
     return
   }
   ctx.body = 'bar'
