@@ -1,29 +1,16 @@
-import { Context } from 'koa'
 import * as Router from 'koa-router'
-import { decodeP } from '@adapter/codec/decode'
-import { logger } from '@protocol/logger'
-import { Todo, isDue } from './core.adapter'
+import { decode } from '@adapter/codec/decode'
+import * as core from './core.adapter'
+import { getAllTodos } from './storage.adapter'
 
-export const router = new Router()
-  .get('/api/todo', getTodo)
-  .post('/api/todo', postTodo)
+export const router = new Router({ prefix: '/api/todo' })
 
-export function getTodo(ctx: Context) {
-  if (isDue(null)) {
-    ctx.body = 'foo'
-    return
-  }
-  ctx.body = 'bar'
-}
+router.get('/', async ctx => {
+  ctx.body = await getAllTodos()
+})
 
-async function postTodo(ctx: Context) {
-  const todo = await decodeP(Todo, ctx.request.body)
-  const isIdEqual = todo.id.equals(todo.id)
-  console.log('qual: ', isIdEqual)
-  if (isDue(todo)) {
-    logger.info({ when: todo.duedate.getFullYear() }, 'due todo')
-  } else {
-    logger.info('not due, %s', todo.description)
-  }
-  ctx.body = todo
-}
+router.post('/', async ctx => {
+  const todo = await decode(core.FutureTodo, ctx.request.body)
+  const doneTodo = core.markAsDone(todo)
+  ctx.body = doneTodo
+})

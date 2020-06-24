@@ -1,58 +1,70 @@
-// adapters
+// import deepEqual from 'deep-equal'
 import * as t from 'io-ts'
-import { fold, either } from 'fp-ts/lib/Either'
-import { pipe } from 'fp-ts/lib/pipeable'
-import { array } from 'fp-ts/lib/Array'
+import { fold } from 'fp-ts/lib/Either'
 import { reporter } from 'io-ts-reporters'
 
+/**
+ * Creates a function which takes incoming values and decodes them
+ * with the given io-ts type,
+ * returning a promise reflecting the result.
+ *
+ * @param type io-ts type to use for decoding incoming values.
+ */
+export function decode<Output, Input>(
+  type: t.Decoder<Input, Output>
+): (value: Input) => Promise<Output>
+/**
+ * Decodes values using io-ts types, returning a promise reflecting the result.
+ *
+ * @param type io-ts type to use for decoding the value.
+ * @param value Value to decode using the given io-ts type.
+ */
+export function decode<Output, Input>(
+  type: t.Decoder<Input, Output>,
+  value: Input
+): Promise<Output>
+export function decode<Output, Input>(
+  type: t.Decoder<Input, Output>,
+  value?: Input
+): ((value: Input) => Promise<Output>) | Promise<Output> {
+  switch (arguments.length) {
+    case 0:
+      throw new Error('Function called with no arguments')
+    case 1:
+      return decode.bind<
+        null,
+        t.Decoder<Input, Output>,
+        [Input],
+        Promise<Output>
+      >(null, type)
+    default:
+      // eslint-disable-next-line no-case-declarations, prefer-rest-params
+      const result = type.decode(value || arguments[1])
+      return fold<t.Errors, Output, Promise<Output>>(
+        () => {
+          const messages = reporter(result)
+          return Promise.reject(new DecodeError(messages.join('\n')))
+        },
+        decodedValue => Promise.resolve(decodedValue)
+      )(result)
+  }
+}
+
+/**
+ * Checks whether error was produced by @see decode due to invalid data.
+ */
+export function isDecodeError(error: unknown): error is DecodeError {
+  return error instanceof DecodeError
+}
+
+/**
+ * Custom error class which is rejected by the @see decode function
+ * when decoding fails due to invalid data.
+ */
 export class DecodeError extends Error {
+  public name = 'DecodeError'
   constructor(message: string) {
     super(message)
-    Object.setPrototypeOf(this, new.target.prototype)
-  }
-}
-
-export function decodeP<T, O, I>(
-  validator: t.Type<T, O, I>,
-  input: I
-): Promise<T> {
-  return new Promise((resolve, reject) => {
-    try {
-      resolve(decode(validator)(input))
-    } catch (error) {
-      reject(error)
-    }
-  })
-}
-
-export function decode<T, O, I>(validator: t.Type<T, O, I>) {
-  return function decode(input: I) {
-    const result = validator.decode(input)
-    return pipe(
-      result,
-      fold(
-        () => {
-          const messages = reporter(result)
-          throw new DecodeError(messages.join('\n'))
-        },
-        value => value
-      )
-    )
-  }
-}
-
-export function decodeSeq<T, O, I>(validator: t.Type<T, O, I>) {
-  return function decodeSeq(input: Array<I>) {
-    const result = array.traverse(either)(input, validator.decode)
-    return pipe(
-      result,
-      fold(
-        () => {
-          const messages = reporter(result)
-          throw new DecodeError(messages.join('\n'))
-        },
-        value => value
-      )
-    )
+    Object.setPrototypeOf(this, DecodeError.prototype)
   }
 }
