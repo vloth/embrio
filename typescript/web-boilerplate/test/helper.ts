@@ -1,6 +1,7 @@
 import { Context } from 'koa'
 import * as td from 'testdouble'
 import { expect } from 'chai'
+import { join } from 'path'
 
 // Re-export some libs for simplification
 export { td, expect }
@@ -8,4 +9,18 @@ export { td, expect }
 // Built-in mocks
 export const mock = {
   ctx: td.object<Context>()
+}
+
+// typed td api
+export function prepare(basepath: string) {
+  return {
+    replace<T>(path: string): T {
+      return td.replace(join(basepath, path), td.object<T>())
+    },
+    load<T>(path: string): T {
+      return require(join(basepath, path))
+    },
+    when: td.when,
+    verify: td.verify
+  }
 }
