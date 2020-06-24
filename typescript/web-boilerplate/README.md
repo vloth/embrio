@@ -10,3 +10,8 @@ $ docker run --rm -ti --name name -v $(pwd)/src:/usr/opt/app/src -p 3000:3000 xx
 Compiling the release image:  
 $ docker build -t xxx .
 ```
+
+RULES:
+
+NO INDEX.TS
+AVOID CONTROLLER

@@ -1,3 +1,4 @@
+// adapters
 import * as t from 'io-ts'
 import { fold, either } from 'fp-ts/lib/Either'
 import { pipe } from 'fp-ts/lib/pipeable'
