@@ -5,14 +5,12 @@ export async function errorHandler(ctx: Context, next: Next) {
   try {
     await next()
   } catch (err) {
-    ctx.body = err.message
-
     if (isDecodeError(err)) {
-      ctx.status = 400
+      ctx.badRequest(err.message)
       return
     }
 
-    ctx.status = 500
+    ctx.internalServerError()
     ctx.app.emit('error', err, ctx)
   }
 }

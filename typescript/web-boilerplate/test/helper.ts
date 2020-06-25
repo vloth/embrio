@@ -1,5 +1,5 @@
+import td from 'testdouble'
 import { Context } from 'koa'
-import * as td from 'testdouble'
 import { expect } from 'chai'
 import { join } from 'path'
 
@@ -20,7 +20,6 @@ export function prepare(basepath: string) {
     load<T>(path: string): T {
       return require(join(basepath, path))
     },
-    when: td.when,
-    verify: td.verify
+    td
   }
 }

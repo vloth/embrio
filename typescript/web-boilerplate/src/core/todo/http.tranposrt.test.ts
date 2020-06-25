@@ -2,7 +2,7 @@ import { expect, mock, prepare } from '@test'
 import type * as HttpType from './http.transport'
 import type * as CoreType from './core.adapter'
 
-const { replace, load, when } = prepare(__dirname)
+const { replace, load } = prepare(__dirname)
 
 suite('todo')
 
