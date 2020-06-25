@@ -1,7 +1,7 @@
 import * as t from 'io-ts'
 import { DateFromISOString } from 'io-ts-types/lib/DateFromISOString'
 import { date } from 'io-ts-types/lib/date'
-import { HexId } from '@adapter/HexId'
+import { HexId } from '@adapter/hex-id'
 
 export const DueTodo = t.readonly(
   t.type({

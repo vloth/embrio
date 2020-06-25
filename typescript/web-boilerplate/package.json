@@ -15,6 +15,7 @@
     "test:watch": "yarn test --watch --reporter min"
   },
   "dependencies": {
+    "@types/ramda": "^0.27.6",
     "fp-ts": "^2.6.5",
     "io-ts": "^2.2.5",
     "io-ts-reporters": "^1.1.0",
@@ -24,7 +25,8 @@
     "module-alias": "^2.2.2",
     "mongodb": "^3.5.9",
     "pg": "^8.2.1",
-    "pino": "^6.3.2"
+    "pino": "^6.3.2",
+    "rambda": "^5.8.0"
   },
   "devDependencies": {
     "@pgtyped/cli": "^0.8.0",
