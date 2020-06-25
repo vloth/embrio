@@ -67,6 +67,6 @@ export class DecodeError extends Error {
   }
 
   private static getErrorMessage(either: E.Either<t.Errors, unknown>) {
-    return `Cannot decode environment: ${reporter(either).join('\n')}`
+    return `[DECODE ERROR] ${reporter(either).join('\n')}`
   }
 }

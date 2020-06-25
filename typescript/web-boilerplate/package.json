@@ -26,7 +26,8 @@
     "mongodb": "^3.5.9",
     "pg": "^8.2.1",
     "pino": "^6.3.2",
-    "rambda": "^5.8.0"
+    "rambda": "^5.8.0",
+    "ramda": "^0.27.0"
   },
   "devDependencies": {
     "@pgtyped/cli": "^0.8.0",
