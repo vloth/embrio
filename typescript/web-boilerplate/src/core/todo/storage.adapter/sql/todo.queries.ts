@@ -1,12 +1,12 @@
-/** Types generated for queries found in "src/todo/adapter/sql/todo.sql" */
+/** Types generated for queries found in "src/core/todo/storage.adapter/sql/todo.sql" */
 import { PreparedQuery } from '@pgtyped/query';
 
-/** 'getTodos' parameters type */
+/** 'GetTodos' parameters type */
 export interface IGetTodosParams {
   done: boolean | null | void;
 }
 
-/** 'getTodos' return type */
+/** 'GetTodos' return type */
 export interface IGetTodosResult {
   id: number;
   description: string;
@@ -14,7 +14,7 @@ export interface IGetTodosResult {
   duedate: Date | null;
 }
 
-/** 'getTodos' query type */
+/** 'GetTodos' query type */
 export interface IGetTodosQuery {
   params: IGetTodosParams;
   result: IGetTodosResult;
@@ -29,5 +29,35 @@ const getTodosIR: any = {"name":"getTodos","params":[{"name":"done","transform":
  * ```
  */
 export const getTodos = new PreparedQuery<IGetTodosParams,IGetTodosResult>(getTodosIR);
+
+
+/** 'AddTodo' parameters type */
+export interface IAddTodoParams {
+  todo: {
+    description: string | null | void,
+    done: boolean | null | void
+  };
+}
+
+/** 'AddTodo' return type */
+export interface IAddTodoResult {
+  id: number;
+}
+
+/** 'AddTodo' query type */
+export interface IAddTodoQuery {
+  params: IAddTodoParams;
+  result: IAddTodoResult;
+}
+
+const addTodoIR: any = {"name":"addTodo","params":[{"name":"todo","codeRefs":{"defined":{"a":96,"b":99,"line":8,"col":10},"used":[{"a":172,"b":175,"line":10,"col":44}]},"transform":{"type":"pick_tuple","keys":["description","done"]}}],"usedParamSet":{"todo":true},"statement":{"body":"INSERT INTO todo(description, done) VALUES :todo returning id","loc":{"a":128,"b":188,"line":10,"col":0}}};
+
+/**
+ * Query generated from SQL:
+ * ```
+ * INSERT INTO todo(description, done) VALUES :todo returning id
+ * ```
+ */
+export const addTodo = new PreparedQuery<IAddTodoParams,IAddTodoResult>(addTodoIR);
 
 

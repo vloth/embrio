@@ -20,6 +20,15 @@ export const FutureTodo = t.readonly(
   })
 )
 
+/*
+declare function pick<O, K extends keyof O>(o: O, keys: Array<K>): Pick<O, K>
+const e = pick(DueTodo.type.props, ['description'])
+const BarT = t.readonly(t.type(e))
+export type BarT = t.TypeOf<typeof BarT>
+const a: BarT = { description: 'akds' }
+a.description = ''
+*/
+
 export const Todo = t.union([FutureTodo, DueTodo])
 
 export type DueTodo = t.TypeOf<typeof DueTodo>
