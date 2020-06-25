@@ -1,6 +1,7 @@
 import 'module-alias/register'
 
 import { app } from './app'
+import { env } from '@adapter/env'
 import { logger } from '@protocol/logger'
 
 process
@@ -12,5 +13,6 @@ process
     process.exit(1)
   })
 
-const port = process.env.PORT || 3000
-app.listen(port, () => logger.info('Application running on port %d', port))
+app.listen(env.port, () =>
+  logger.info('Application running on port %d', env.port)
+)

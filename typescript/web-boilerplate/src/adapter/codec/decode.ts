@@ -1,6 +1,6 @@
 // import deepEqual from 'deep-equal'
 import * as t from 'io-ts'
-import { fold } from 'fp-ts/lib/Either'
+import * as E from 'fp-ts/lib/Either'
 import { reporter } from 'io-ts-reporters'
 
 /**
@@ -40,11 +40,8 @@ export function decode<Output, Input>(
     default:
       // eslint-disable-next-line no-case-declarations, prefer-rest-params
       const result = type.decode(value || arguments[1])
-      return fold<t.Errors, Output, Promise<Output>>(
-        () => {
-          const messages = reporter(result)
-          return Promise.reject(new DecodeError(messages.join('\n')))
-        },
+      return E.fold<t.Errors, Output, Promise<Output>>(
+        () => Promise.reject(new DecodeError(result)),
         decodedValue => Promise.resolve(decodedValue)
       )(result)
   }
@@ -63,8 +60,13 @@ export function isDecodeError(error: unknown): error is DecodeError {
  */
 export class DecodeError extends Error {
   public name = 'DecodeError'
-  constructor(message: string) {
-    super(message)
+
+  constructor(either: E.Either<t.Errors, unknown>) {
+    super(DecodeError.getErrorMessage(either))
     Object.setPrototypeOf(this, DecodeError.prototype)
+  }
+
+  private static getErrorMessage(either: E.Either<t.Errors, unknown>) {
+    return `Cannot decode environment: ${reporter(either).join('\n')}`
   }
 }
