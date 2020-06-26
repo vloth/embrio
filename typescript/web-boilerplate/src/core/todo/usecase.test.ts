@@ -4,30 +4,32 @@ import type * as Utype from './usecase'
 
 const { replace, load } = prepare(__dirname)
 
-suite('todo interactor')
+suite('todo use cases')
 
 const S = replace<typeof Stype>('./storage.adapter')
 const U = load<typeof Utype>('./usecase')
 
-test('mark todo as done', async function () {
-  const todo = { id: 1, description: 'do the dishes', done: false }
-  td.when(S.get(todo.id)).thenResolve(todo)
+test('mark pending task as done should update todo', async function () {
+  const pendingtask = { id: 1, description: 'do the dishes', done: false }
+  td.when(S.get(pendingtask.id)).thenResolve(pendingtask)
 
-  await U.markAsDone(todo.id)
+  await U.markAsDone(pendingtask.id)
 
-  td.verify(S.update({ ...todo, done: true, duedate: td.matchers.isA(Date) }))
+  td.verify(
+    S.update({ ...pendingtask, done: true, duedate: td.matchers.isA(Date) })
+  )
 })
 
 // eslint-disable-next-line max-len
-test('mark todo as done should fail when todo is already done', async function () {
-  const todo = {
+test('mark an already completed task as done should fail', async function () {
+  const completedtask = {
     id: 1,
     done: true,
     duedate: new Date(),
     description: 'do the dishes'
   }
 
-  td.when(S.get(todo.id)).thenResolve(todo)
+  td.when(S.get(completedtask.id)).thenResolve(completedtask)
 
-  expect(U.markAsDone(todo.id)).to.be.rejected
+  expect(U.markAsDone(completedtask.id)).to.be.rejected
 })
