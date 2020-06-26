@@ -18,6 +18,7 @@ export function prepare(basepath: string) {
       return td.replace(join(basepath, path), td.object<T>())
     },
     load<T>(path: string): T {
+      if (path.startsWith('@')) return require(path)
       return require(join(basepath, path))
     }
   }
