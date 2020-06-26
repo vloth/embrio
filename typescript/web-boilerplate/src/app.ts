@@ -5,7 +5,7 @@ import { logger } from '@protocol/logger'
 import bodyparser from 'koa-bodyparser'
 import respond from './transport/http/respond'
 import { errorHandler } from './transport/http/error-middleware'
-import { registerRoutes } from './transport/http/dnamic-route-register'
+import { registerRoutes } from './transport/http/dynamic-route-register'
 
 export const app = new Koa()
 
