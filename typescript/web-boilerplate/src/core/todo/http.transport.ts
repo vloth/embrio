@@ -8,7 +8,8 @@ import * as U from './usecase'
 export const router = new Router({ prefix: '/api/todo' })
 
 router.get('/', async ctx => {
-  ctx.ok(await S.getAllTodos())
+  const todos = await S.getAllTodos()
+  ctx.ok(todos)
 })
 
 router.post('/', async ctx => {
