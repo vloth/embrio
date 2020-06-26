@@ -4,7 +4,7 @@ type Id = number
 
 const isId = (u: unknown): u is Id => parseInt(u as string, 10) > 0
 
-export const Id = new t.Type<Id, string, unknown>(
+const Id = new t.Type<Id, string, unknown>(
   'Id',
   isId,
   (u, c) =>
