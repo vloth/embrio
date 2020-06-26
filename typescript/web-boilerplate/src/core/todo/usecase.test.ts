@@ -19,7 +19,7 @@ test('mark pending task as done should update todo', async function () {
     storage.update({
       ...pendingtask,
       done: true,
-      duedate: td.matchers.isA(Date)
+      date: td.matchers.isA(Date)
     })
   )
 })
@@ -29,7 +29,7 @@ test('mark an already completed task as done should fail', async function () {
   const completedtask = {
     id: 1,
     done: true,
-    duedate: new Date(),
+    date: new Date(),
     description: 'do the dishes'
   }
 

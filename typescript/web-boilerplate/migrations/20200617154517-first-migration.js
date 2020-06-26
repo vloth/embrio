@@ -21,7 +21,7 @@ exports.up = function (db, done) {
       id: { type: 'int', primaryKey: true, autoIncrement: true },
       description: { type: 'string', notNull: true },
       done: { type: 'boolean', notNull: true },
-      duedate: { type: 'timestamp', notNull: false }
+      date: { type: 'timestamp', notNull: false }
     },
     done
   )

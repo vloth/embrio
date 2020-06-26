@@ -1,24 +1,24 @@
 /** Types generated for queries found in "src/core/todo/storage.adapter/sql/todo.sql" */
 import { PreparedQuery } from '@pgtyped/query';
 
-/** 'GetTodos' parameters type */
-export type IGetTodosParams = void;
+/** 'GetAll' parameters type */
+export type IGetAllParams = void;
 
-/** 'GetTodos' return type */
-export interface IGetTodosResult {
+/** 'GetAll' return type */
+export interface IGetAllResult {
   id: number;
   description: string;
   done: boolean;
-  duedate: Date | null;
+  date: Date | null;
 }
 
-/** 'GetTodos' query type */
-export interface IGetTodosQuery {
-  params: IGetTodosParams;
-  result: IGetTodosResult;
+/** 'GetAll' query type */
+export interface IGetAllQuery {
+  params: IGetAllParams;
+  result: IGetAllResult;
 }
 
-const getTodosIR: any = {"name":"getTodos","params":[],"usedParamSet":{},"statement":{"body":"select * from todo","loc":{"a":21,"b":38,"line":2,"col":0}}};
+const getAllIR: any = {"name":"getAll","params":[],"usedParamSet":{},"statement":{"body":"select * from todo","loc":{"a":19,"b":36,"line":2,"col":0}}};
 
 /**
  * Query generated from SQL:
@@ -26,7 +26,7 @@ const getTodosIR: any = {"name":"getTodos","params":[],"usedParamSet":{},"statem
  * select * from todo
  * ```
  */
-export const getTodos = new PreparedQuery<IGetTodosParams,IGetTodosResult>(getTodosIR);
+export const getAll = new PreparedQuery<IGetAllParams,IGetAllResult>(getAllIR);
 
 
 /** 'Get' parameters type */
@@ -39,7 +39,7 @@ export interface IGetResult {
   id: number;
   description: string;
   done: boolean;
-  duedate: Date | null;
+  date: Date | null;
 }
 
 /** 'Get' query type */
@@ -48,7 +48,7 @@ export interface IGetQuery {
   result: IGetResult;
 }
 
-const getIR: any = {"name":"get","params":[{"name":"id","transform":{"type":"scalar"},"codeRefs":{"used":[{"a":89,"b":90,"line":5,"col":31}]}}],"usedParamSet":{"id":true},"statement":{"body":"select * from todo where id = :id","loc":{"a":58,"b":90,"line":5,"col":0}}};
+const getIR: any = {"name":"get","params":[{"name":"id","transform":{"type":"scalar"},"codeRefs":{"used":[{"a":87,"b":88,"line":5,"col":31}]}}],"usedParamSet":{"id":true},"statement":{"body":"select * from todo where id = :id","loc":{"a":56,"b":88,"line":5,"col":0}}};
 
 /**
  * Query generated from SQL:
@@ -63,7 +63,7 @@ export const get = new PreparedQuery<IGetParams,IGetResult>(getIR);
 export interface IUpdateParams {
   done: boolean | null | void;
   description: string | null | void;
-  duedate: Date | null | void;
+  date: Date | null | void;
   id: number | null | void;
 }
 
@@ -76,46 +76,46 @@ export interface IUpdateQuery {
   result: IUpdateResult;
 }
 
-const updateIR: any = {"name":"update","params":[{"name":"done","transform":{"type":"scalar"},"codeRefs":{"used":[{"a":134,"b":137,"line":9,"col":10}]}},{"name":"description","transform":{"type":"scalar"},"codeRefs":{"used":[{"a":153,"b":163,"line":9,"col":29}]}},{"name":"duedate","transform":{"type":"scalar"},"codeRefs":{"used":[{"a":175,"b":181,"line":9,"col":51}]}},{"name":"id","transform":{"type":"scalar"},"codeRefs":{"used":[{"a":193,"b":194,"line":10,"col":10}]}}],"usedParamSet":{"done":true,"description":true,"duedate":true,"id":true},"statement":{"body":"update todo\nset done=:done, description=:description, duedate=:duedate\nwhere id=:id","loc":{"a":112,"b":194,"line":8,"col":0}}};
+const updateIR: any = {"name":"update","params":[{"name":"done","transform":{"type":"scalar"},"codeRefs":{"used":[{"a":133,"b":136,"line":9,"col":10}]}},{"name":"description","transform":{"type":"scalar"},"codeRefs":{"used":[{"a":152,"b":162,"line":9,"col":29}]}},{"name":"date","transform":{"type":"scalar"},"codeRefs":{"used":[{"a":171,"b":174,"line":9,"col":48}]}},{"name":"id","transform":{"type":"scalar"},"codeRefs":{"used":[{"a":186,"b":187,"line":10,"col":10}]}}],"usedParamSet":{"done":true,"description":true,"date":true,"id":true},"statement":{"body":"update todo\nset done=:done, description=:description, date=:date\nwhere id=:id","loc":{"a":111,"b":187,"line":8,"col":0}}};
 
 /**
  * Query generated from SQL:
  * ```
  * update todo
- * set done=:done, description=:description, duedate=:duedate
+ * set done=:done, description=:description, date=:date
  * where id=:id
  * ```
  */
 export const update = new PreparedQuery<IUpdateParams,IUpdateResult>(updateIR);
 
 
-/** 'AddTodo' parameters type */
-export interface IAddTodoParams {
-  todo: {
-    description: string | null | void,
-    done: boolean | null | void
-  };
+/** 'Insert' parameters type */
+export interface IInsertParams {
+  description: string | null | void;
+  done: boolean | null | void;
+  date: Date | null | void;
 }
 
-/** 'AddTodo' return type */
-export interface IAddTodoResult {
+/** 'Insert' return type */
+export interface IInsertResult {
   id: number;
 }
 
-/** 'AddTodo' query type */
-export interface IAddTodoQuery {
-  params: IAddTodoParams;
-  result: IAddTodoResult;
+/** 'Insert' query type */
+export interface IInsertQuery {
+  params: IInsertParams;
+  result: IInsertResult;
 }
 
-const addTodoIR: any = {"name":"addTodo","params":[{"name":"todo","codeRefs":{"defined":{"a":228,"b":231,"line":14,"col":10},"used":[{"a":304,"b":307,"line":16,"col":44}]},"transform":{"type":"pick_tuple","keys":["description","done"]}}],"usedParamSet":{"todo":true},"statement":{"body":"insert into todo(description, done) values :todo returning id","loc":{"a":260,"b":320,"line":16,"col":0}}};
+const insertIR: any = {"name":"insert","params":[{"name":"description","transform":{"type":"scalar"},"codeRefs":{"used":[{"a":261,"b":271,"line":14,"col":9}]}},{"name":"done","transform":{"type":"scalar"},"codeRefs":{"used":[{"a":275,"b":278,"line":14,"col":23}]}},{"name":"date","transform":{"type":"scalar"},"codeRefs":{"used":[{"a":282,"b":285,"line":14,"col":30}]}}],"usedParamSet":{"description":true,"done":true,"date":true},"statement":{"body":"insert into todo(description, done, date)\nvalues (:description, :done, :date) returning id","loc":{"a":210,"b":299,"line":13,"col":0}}};
 
 /**
  * Query generated from SQL:
  * ```
- * insert into todo(description, done) values :todo returning id
+ * insert into todo(description, done, date)
+ * values (:description, :done, :date) returning id
  * ```
  */
-export const addTodo = new PreparedQuery<IAddTodoParams,IAddTodoResult>(addTodoIR);
+export const insert = new PreparedQuery<IInsertParams,IInsertResult>(insertIR);
 
 

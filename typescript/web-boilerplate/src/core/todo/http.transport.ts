@@ -13,7 +13,7 @@ router.get('/', async ctx => {
 })
 
 router.post('/', async ctx => {
-  const todo = await decode(core.FutureTodo, ctx.request.body)
+  const todo = await decode(core.PendingTask, ctx.request.body)
   const id = await storage.addTodo(todo)
   ctx.created({ id })
 })
