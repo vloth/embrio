@@ -16,9 +16,9 @@ type Env = t.TypeOf<typeof Env>
 type UnsafeEnv = { [P in keyof Required<Env>]: string | undefined }
 
 function decodeEnvironment(unsafeEnv: UnsafeEnv) {
-  const eitherEnv = Env.decode(unsafeEnv)
-  if (isLeft(eitherEnv)) throw new DecodeError(eitherEnv)
-  return eitherEnv.right
+  const envE = Env.decode(unsafeEnv)
+  if (isLeft(envE)) throw new DecodeError(envE)
+  return envE.right
 }
 
 // ⚠ !DANGER!
