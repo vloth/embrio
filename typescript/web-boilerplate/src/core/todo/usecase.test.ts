@@ -1,13 +1,13 @@
 import { prepare } from '@test'
 import type * as Stype from './storage.adapter'
-import type * as Itype from './interactor'
+import type * as Utype from './usecase'
 
 const { replace, load, td } = prepare(__dirname)
 
 suite('todo interactor')
 
 const S = replace<typeof Stype>('./storage.adapter')
-const I = load<typeof Itype>('./interactor')
+const U = load<typeof Utype>('./usecase')
 
 test('mark todo as done', async function () {
   const todo = {
@@ -18,7 +18,7 @@ test('mark todo as done', async function () {
 
   td.when(S.get(todo.id)).thenResolve(todo)
 
-  await I.markAsDone(todo.id)
+  await U.markAsDone(todo.id)
 
   td.verify(
     S.update({
