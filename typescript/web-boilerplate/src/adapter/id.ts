@@ -1,10 +1,10 @@
 import * as t from 'io-ts'
 
-type Id = number
-
 const isId = (u: unknown): u is Id => parseInt(u as string, 10) > 0
 
-const Id = new t.Type<Id, string, unknown>(
+export type Id = number
+
+export const Id = new t.Type<Id, string, unknown>(
   'Id',
   isId,
   (u, c) =>

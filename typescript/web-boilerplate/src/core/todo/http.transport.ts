@@ -1,6 +1,6 @@
 import Router from 'koa-router'
-import { NumberFromString } from 'io-ts-types/lib/NumberFromString'
 import { decode } from '@adapter/codec/decode'
+import { Id } from '@adapter/id'
 import * as C from './core.adapter'
 import * as S from './storage.adapter'
 import * as U from './usecase'
@@ -19,7 +19,7 @@ router.post('/', async ctx => {
 })
 
 router.patch('/:id/done', async ctx => {
-  const id = await decode(NumberFromString, ctx.params.id)
+  const id = await decode(Id, ctx.params.id)
   await U.markAsDone(id)
   ctx.ok()
 })
