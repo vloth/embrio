@@ -19,7 +19,6 @@ export function prepare(basepath: string) {
     },
     load<T>(path: string): T {
       return require(join(basepath, path))
-    },
-    td
+    }
   }
 }
