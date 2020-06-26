@@ -1,22 +1,26 @@
 import { td, prepare, expect } from '@test'
-import type * as Stype from './storage.adapter'
-import type * as Utype from './usecase'
+import type * as StorageType from './storage.adapter'
+import type * as UsecaseType from './usecase'
 
 const { replace, load } = prepare(__dirname)
 
 suite('todo use cases')
 
-const S = replace<typeof Stype>('./storage.adapter')
-const U = load<typeof Utype>('./usecase')
+const storage = replace<typeof StorageType>('./storage.adapter')
+const usecase = load<typeof UsecaseType>('./usecase')
 
 test('mark pending task as done should update todo', async function () {
   const pendingtask = { id: 1, description: 'do the dishes', done: false }
-  td.when(S.get(pendingtask.id)).thenResolve(pendingtask)
+  td.when(storage.get(pendingtask.id)).thenResolve(pendingtask)
 
-  await U.markAsDone(pendingtask.id)
+  await usecase.markAsDone(pendingtask.id)
 
   td.verify(
-    S.update({ ...pendingtask, done: true, duedate: td.matchers.isA(Date) })
+    storage.update({
+      ...pendingtask,
+      done: true,
+      duedate: td.matchers.isA(Date)
+    })
   )
 })
 
@@ -29,7 +33,7 @@ test('mark an already completed task as done should fail', async function () {
     description: 'do the dishes'
   }
 
-  td.when(S.get(completedtask.id)).thenResolve(completedtask)
+  td.when(storage.get(completedtask.id)).thenResolve(completedtask)
 
-  expect(U.markAsDone(completedtask.id)).to.be.rejected
+  expect(usecase.markAsDone(completedtask.id)).to.be.rejected
 })
