@@ -4,11 +4,9 @@ import { IntFromString } from 'io-ts-types/lib/IntFromString'
 import { DecodeError } from './codec/decode'
 
 const Env = t.readonly(
-  t.readonly(
-    t.type({
-      port: IntFromString
-    })
-  )
+  t.strict({
+    port: IntFromString
+  })
 )
 
 type Env = t.TypeOf<typeof Env>

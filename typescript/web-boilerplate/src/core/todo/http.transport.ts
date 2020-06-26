@@ -19,6 +19,6 @@ router.post('/', async ctx => {
 
 router.patch('/:id/done', async ctx => {
   const id = await decode(NumberFromString, ctx.params.id)
-  U.markAsDone(id)
+  await U.markAsDone(id)
   ctx.ok()
 })

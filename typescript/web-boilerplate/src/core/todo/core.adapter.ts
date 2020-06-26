@@ -17,11 +17,6 @@ export const FutureTodo = t.readonly(
   })
 )
 
-export const identified = <C extends t.Mixed>(codec: C) =>
-  t.intersection([codec, t.readonly(t.type({ id: t.number }))])
-
-export type Identified<C> = { id: number } & C
-
 export const Todo = t.union([FutureTodo, DueTodo])
 
 export type DueTodo = t.TypeOf<typeof DueTodo>
