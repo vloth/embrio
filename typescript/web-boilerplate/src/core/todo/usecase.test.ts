@@ -1,4 +1,4 @@
-import { td, prepare, expect } from '@test'
+import { prepare, expect, td, mockAsync } from '@test'
 import type * as StorageType from './storage.adapter'
 import type * as UsecaseType from './usecase'
 
@@ -10,9 +10,14 @@ const storage = replace<typeof StorageType>('./storage.adapter')
 const usecase = load<typeof UsecaseType>('./usecase')
 
 test('mark pending task as done should update todo', async function () {
-  const pendingtask = { id: 1, description: 'do the dishes', done: false }
-  td.when(storage.get(pendingtask.id)).thenResolve(pendingtask)
+  const pendingtask = {
+    id: 1,
+    description: 'do the dishes',
+    done: false,
+    date: null
+  }
 
+  mockAsync(storage.get(pendingtask.id), pendingtask)
   await usecase.markAsDone(pendingtask.id)
 
   td.verify(
@@ -30,10 +35,10 @@ test('mark an already completed task as done should fail', async function () {
     id: 1,
     done: true,
     date: new Date(),
-    description: 'do the dishes'
+    description: 'clean the dishes'
   }
 
-  td.when(storage.get(completedtask.id)).thenResolve(completedtask)
+  mockAsync(storage.get(completedtask.id), completedtask)
 
   expect(usecase.markAsDone(completedtask.id)).to.be.rejected
 })

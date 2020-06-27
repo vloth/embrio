@@ -1,15 +1,20 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import td from 'testdouble'
-import { Context } from 'koa'
 import { expect } from 'chai'
 import { join } from 'path'
 
 // Re-export some libs for simplification
 export { td, expect }
 
-// Built-in mocks
-export const mock = {
-  ctx: td.object<Context>()
-}
+export const mock = <T>(
+  expression: T,
+  example: T extends Promise<unknown> ? never : T
+) => td.when(expression).thenReturn(example as any)
+
+export const mockAsync = <T>(
+  expression: T,
+  example: T extends Promise<infer R> ? R : never
+) => td.when(expression).thenResolve(example as any)
 
 // typed td api
 export function prepare(basepath: string) {

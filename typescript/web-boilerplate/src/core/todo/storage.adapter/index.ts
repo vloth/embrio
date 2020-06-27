@@ -6,7 +6,10 @@ import * as core from '../core.adapter'
 
 export const getAllTodos = () => query.getAll.run(undefined, pool())
 
-export const get = (id: Id) => query.get.run({ id }, pool()).then(head)
+export const get = async (id: Id) => {
+  const rows = await query.get.run({ id }, pool())
+  return head(rows)
+}
 
 export const update = (todo: Identified<core.Todo>) =>
   query.update.run({ date: null, ...todo }, pool())
