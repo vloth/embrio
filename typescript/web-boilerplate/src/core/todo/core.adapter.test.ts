@@ -17,18 +17,18 @@ const pendingtask = {
 }
 
 test('decode PendingTask', async function () {
-  const decoded = await decode(core.PendingTask, pendingtask)
+  const decoded = decode(core.PendingTask, pendingtask)
   expect(decoded).to.eql(pendingtask)
 })
 
 test('decode CompletedTask', async function () {
-  const decoded = await decode(core.CompletedTask, completedtask)
+  const decoded = decode(core.CompletedTask, completedtask)
   expect(decoded).to.eql({ ...completedtask, date: now })
 })
 
 test('decode Todo', async function () {
-  const completedTaskDecoded = await decode(core.Todo, completedtask)
-  const pendingTaskDecoded = await decode(core.Todo, pendingtask)
+  const completedTaskDecoded = decode(core.Todo, completedtask)
+  const pendingTaskDecoded = decode(core.Todo, pendingtask)
 
   expect(pendingTaskDecoded).to.eql(pendingtask)
   expect(completedTaskDecoded).to.eql({ ...completedtask, date: now })

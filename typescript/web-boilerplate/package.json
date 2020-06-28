@@ -12,6 +12,7 @@
     "db:migrate": "node migrations/setup/ensure-db && db-migrate",
     "lint": "eslint",
     "test": "mocha -r ts-node/register/transpile-only --recursive \"src/**/*.test.ts\"",
+    "test:only": "mocha -r ts-node/register/transpile-only --watch --reporter min",
     "test:watch": "yarn test --watch --reporter min",
     "test:cover": "nyc yarn test",
     "test:cover:open": "open coverage/lcov-report/index.html"

@@ -6,7 +6,7 @@ import { decode } from '@adapter/codec/decode'
 
 suite('error middleware')
 
-test('should set internal server error on bad handler', async function () {
+test('set internal server error on bad handler', async function () {
   const ctx = td.object<Context>()
   const err = Error('bad bad error')
   const next = async () => Promise.reject(err)
@@ -17,9 +17,9 @@ test('should set internal server error on bad handler', async function () {
   td.verify(ctx.app.emit('error', err, ctx))
 })
 
-test('should set bad request on decode error', async function () {
+test('set bad request on decode error', async function () {
   const ctx = td.object<Context>()
-  const next = async () => await decode(t.number, '23')
+  const next = async () => decode(t.number, '23')
 
   await errorHandler(ctx, next)
 

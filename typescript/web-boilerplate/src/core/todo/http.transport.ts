@@ -13,13 +13,13 @@ router.get('/', async ctx => {
 })
 
 router.post('/', async ctx => {
-  const todo = await decode(core.PendingTask, ctx.request.body)
+  const todo = decode(core.PendingTask, ctx.request.body)
   const id = await storage.addTodo(todo)
   ctx.created({ id })
 })
 
 router.patch('/:id/done', async ctx => {
-  const id = await decode(Id, ctx.params.id)
+  const id = decode(Id, ctx.params.id)
   await usecase.markAsDone(id)
   ctx.ok()
 })
