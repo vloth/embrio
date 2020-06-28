@@ -25,6 +25,6 @@
     "baseUrl": "./",
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "typeRoots": ["./node_modules/@types", "./src/transport/http/koa-respond.d.ts"]
+    "typeRoots": ["./node_modules/@types", "./types"]
   }
 }

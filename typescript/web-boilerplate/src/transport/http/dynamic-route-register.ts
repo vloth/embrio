@@ -23,10 +23,9 @@ export function registerRoutes(app: Koa, routes: Array<string>) {
 
       app.use(httpModule.router.routes())
     } catch (err) {
-      logger.fatal(
+      logger.error(
         `Cannot register http module for ${route} on application startup`
       )
-      throw err
     }
   })
 }
