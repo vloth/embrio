@@ -25,5 +25,5 @@ test('should register routes in app', async function () {
   replace('./routeB', { router: new Router() })
   registerRoutes(app, ['./routeA', './routeB'])
 
-  td.verify(app.use(td.matchers.anything()))
+  td.verify(app.use(td.matchers.isA(Function)), { times: 2 })
 })
