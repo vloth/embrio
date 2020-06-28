@@ -1,8 +1,8 @@
 {
   "development": {
     "driver": "pg",
-    "host": "127.0.0.1",
-    "user": "postgres",
-    "database": "my-app"
+    "host": { "ENV": "PGHOST" },
+    "user": { "ENV": "PGUSER" },
+    "database": { "ENV": "PGDATABASE" }
   }
 }
