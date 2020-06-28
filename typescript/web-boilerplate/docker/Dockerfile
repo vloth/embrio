@@ -2,19 +2,21 @@
 # ---- Base ----
 FROM node:14-alpine AS base
 WORKDIR /usr/opt/app
-COPY package.json yarn.lock .prettierrc.yaml .eslintrc.yml tsconfig.json ./
+COPY database.json package.json yarn.lock .prettierrc.yaml .eslintrc.yml tsconfig.json ./
 
 #
 # ---- Development ----
 FROM base AS develop
 ENV PORT 3000
 ENTRYPOINT ["yarn"]
-CMD ["start"]
+CMD ["dev"]
 RUN cp -R /usr/opt/app /usr/opt/app-build && yarn --cwd /usr/opt/app-build  install --production
 RUN yarn install
 COPY src src/
+COPY types types/
+COPY test test/
 RUN yarn lint src/**/*.ts
-RUN yarn build && cp -R src/*.js /usr/opt/app-build/src
+RUN yarn build && cp -R src /usr/opt/app-build/src
 
 #
 # ---- Build ----

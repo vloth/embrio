@@ -7,10 +7,5 @@
     }
   ],
   "srcDir": "./src/",
-  "failOnError": false,
-  "db": {
-    "host": "127.0.0.1",
-    "user": "postgres",
-    "dbName": "my-app"
-  }
+  "failOnError": false
 }
