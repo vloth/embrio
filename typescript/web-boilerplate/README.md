@@ -1,50 +1,30 @@
-# Getting started
+## Design
 
-```
-Compiling the development image:  
-$ docker build -t xxx:develop --target develop .
+![ports & adapters](./docs/ports-and-adapters.png)
+![decoding](./docs/decoding.gif)
 
-Running development image with watch for development:  
-$ docker run --rm -ti --name name -v $(pwd)/src:/usr/opt/app/src -p 3000:3000 xxx:develop
+### Getting Started
 
-Compiling the release image:  
-$ docker build -t xxx .
+```bash
+$ cp .env.sample .env && yarn install
 ```
 
-RULES:
+### Running in docker
 
-NO INDEX.TS  
-AVOID CONTROLLER/SERVICE/OVER-BLOATED-TERM  
+```bash
+# compiling docker compose
+$ docker-compose -f docker/docker-compose.yml build
 
-inspiration:
+# running the stack
+$ docker-compose -f docker/docker-compose.yml up -d
+
+# get logs of the application
+$ docker-compose -f docker/docker-compose.yml logs -f app
+
+# run just the database
+$ docker-compose -f docker/docker-compose.yml run --service-ports --detach db
+```
+
+### References & Inspiration:
 * https://netflixtechblog.com/ready-for-changes-with-hexagonal-architecture-b315ec967749
 * https://github.com/nubank/basic-microservice-example
-
-
-```
-yarn run v1.15.2
-$ mocha -r ts-node/register src/**/*.test.ts
-td-mock: 4.444ms
-
-
-  todo
-    ✓ mocked
-    ✓ UN-mocked
-
-
-  2 passing (8ms)
-
-✨  Done in 3.92s.
-ɤ yarn test
-yarn run v1.15.2
-$ mocha -r ts-node/register src/**/*.test.ts
-td-mock: 254.649ms
-
-
-  todo
-    ✓ mocked
-    ✓ UN-mocked
-
-
-  2 passing (7ms)
-```
