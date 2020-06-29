@@ -12,10 +12,8 @@ const todoFactory = factory<UnknownTodo>(faker => ({
   done: true
 }))
 
-const [completedtask, pendingtask] = [
-  todoFactory.build(),
-  omit(['date'], todoFactory.build({ done: false }))
-]
+const completedtask = todoFactory.build()
+const pendingtask = omit(['date'], todoFactory.build({ done: false }))
 
 test('decode PendingTask', async function () {
   const decoded = decode(core.PendingTask, pendingtask)
