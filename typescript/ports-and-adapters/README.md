@@ -1,17 +1,23 @@
 ### Design
 
+A typescript *functional-ish* implementation of the hexagonal architecture
+
 ![ports & adapters](./docs/ports-and-adapters.png)
 
 #### usecase
-lorem
+The usecase layer represents the business rules of the software. It encapsulates the constraints around
+the core types. Therefore all the *use cases*. A change in this layer should not affect the core types.
+Also changes external to usecases, in the outer layer, should not generate any changes in
+this layer.
 
 #### adapter
 Adapters are responsible for converting the data between the outer layer
 (http transport, storages, third party services, etc) and the inner layer
 (use cases and core types). Data representations are converted through decoding/encoding.  
-`core.adapter` is the main adapter which decodes any unknown data to core types.
+`core.adapter` is the main adapter which decodes any unknown data to a core type.
 Besides the core adapter, there is also the `storage.adapter`, which handles
-data transport between database and the application. [See more about decoding here](http://google.com)
+data transport between database engines and the application.  
+[See more about decoding here](http://google.com)
 
 #### protocol
 lorem
@@ -45,3 +51,4 @@ $ docker-compose -f docker/docker-compose.yml run --service-ports --detach db
 ### References & Inspiration:
 * https://netflixtechblog.com/ready-for-changes-with-hexagonal-architecture-b315ec967749
 * https://github.com/nubank/basic-microservice-example
+* https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html
