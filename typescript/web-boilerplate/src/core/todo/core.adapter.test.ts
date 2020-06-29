@@ -1,20 +1,21 @@
-import { expect } from '@test'
+import { expect, factory } from '@test'
 import * as core from './core.adapter'
 import { decode } from '@adapter/codec/decode'
+import { omit } from 'ramda'
 
 suite('todo core adapter')
 
-const now = new Date()
-const completedtask = {
-  description: 'do the dishes',
-  done: true,
-  date: now.toISOString()
-}
+type UnknownTodo = { date: string; description: string; done: boolean }
+const todoFactory = factory<UnknownTodo>(faker => ({
+  date: faker.date.recent().toISOString(),
+  description: faker.lorem.sentence(),
+  done: true
+}))
 
-const pendingtask = {
-  description: 'do the dishes',
-  done: false
-}
+const [completedtask, pendingtask] = [
+  todoFactory.build(),
+  omit(['date'], todoFactory.build({ done: false }))
+]
 
 test('decode PendingTask', async function () {
   const decoded = decode(core.PendingTask, pendingtask)
@@ -23,7 +24,10 @@ test('decode PendingTask', async function () {
 
 test('decode CompletedTask', async function () {
   const decoded = decode(core.CompletedTask, completedtask)
-  expect(decoded).to.eql({ ...completedtask, date: now })
+  expect(decoded).to.eql({
+    ...completedtask,
+    date: new Date(completedtask.date)
+  })
 })
 
 test('decode Todo', async function () {
@@ -31,5 +35,8 @@ test('decode Todo', async function () {
   const pendingTaskDecoded = decode(core.Todo, pendingtask)
 
   expect(pendingTaskDecoded).to.eql(pendingtask)
-  expect(completedTaskDecoded).to.eql({ ...completedtask, date: now })
+  expect(completedTaskDecoded).to.eql({
+    ...completedtask,
+    date: new Date(completedtask.date)
+  })
 })

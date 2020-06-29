@@ -31,7 +31,6 @@ test('mark pending task as done should update todo', async function () {
   )
 })
 
-// eslint-disable-next-line max-len
 test('mark an already completed task as done should fail', async function () {
   const completedtask = todoFactory.build({ done: true, date: new Date() })
 
