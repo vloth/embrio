@@ -1,4 +1,4 @@
-import { prepare, expect, td, mockAsync } from '@test'
+import { prepare, expect, td, calling } from '@test'
 import type * as StorageType from './storage.adapter'
 import type * as UsecaseType from './usecase'
 
@@ -17,7 +17,7 @@ test('mark pending task as done should update todo', async function () {
     date: null
   }
 
-  mockAsync(storage.get(pendingtask.id), pendingtask)
+  calling(storage.get(pendingtask.id)).resolves(pendingtask)
   await usecase.markAsDone(pendingtask.id)
 
   td.verify(
@@ -38,7 +38,7 @@ test('mark an already completed task as done should fail', async function () {
     description: 'clean the dishes'
   }
 
-  mockAsync(storage.get(completedtask.id), completedtask)
+  calling(storage.get(completedtask.id)).resolves(completedtask)
 
   expect(usecase.markAsDone(completedtask.id)).to.be.rejected
 })

@@ -6,13 +6,21 @@ import { join } from 'path'
 // Re-export some libs for simplification
 export { td, expect }
 
-export const mock = <T>(
-  expression: T,
-  example: T extends Promise<unknown> ? never : T
-) => td.when(expression).thenReturn(example as any)
-
-export const mockAsync = <T>(expression: Promise<T>, example: T) =>
-  td.when(expression).thenResolve(example as any)
+// infer api from type system
+export function calling<T>(
+  expression: T
+): T extends Promise<infer R>
+  ? { resolves: (r: R) => void }
+  : { returns: (t: T) => void } {
+  return {
+    returns(t: T) {
+      td.when(expression).thenReturn(t as any)
+    },
+    resolves(r: unknown) {
+      td.when(expression).thenResolve(r as any)
+    }
+  } as any
+}
 
 // typed td api
 export function prepare(basepath: string) {
