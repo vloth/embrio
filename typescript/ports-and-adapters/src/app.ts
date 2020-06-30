@@ -1,11 +1,11 @@
 import Koa from 'koa'
 import * as glob from 'glob'
 import * as path from 'path'
-import { logger } from '@protocol/logger'
 import bodyparser from 'koa-bodyparser'
-import respond from './transport/http/respond'
-import { errorHandler } from './transport/http/error-middleware'
-import { registerRoutes } from './transport/http/dynamic-route-register'
+import respond from '@protocol/http/respond'
+import { logger } from '@protocol/logger'
+import { errorHandler } from '@protocol/http/error-middleware'
+import { registerRoutes } from '@protocol/http/dynamic-route-register'
 
 export const app = new Koa()
 

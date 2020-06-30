@@ -1,6 +1,5 @@
-### Design
-
-A *type safe functional* implementation of the hexagonal architecture in typescript
+A *type safe functional* implementation of the hexagonal architecture in typescript 
+[(design goals)](http://google.com)
 
 ![ports & adapters](./docs/ports-and-adapters.png)
 
@@ -16,14 +15,12 @@ Adapters are responsible for converting the data between the outer layer
 (use cases and core types). Data representations are converted through decoding/encoding.  
 `core.adapter` is the main adapter which decodes any unknown data to a core type.
 Besides the core adapter, there is also the `storage.adapter`, which handles
-data transport between database engines and the application.  
-[See more about decoding here](http://google.com)
+data transport between database engines and the application 
+[(more about decoding)](http://google.com).
 
 #### protocol
-Protocols setup any required infraestructure for the communication that happens on the outer layer.
-
-#### transport
-lorem
+Protocols setup any required infraestructure for the communication between the 
+outmost layer and the external world.
 
 
 ### Getting Started
@@ -52,3 +49,4 @@ $ docker-compose -f docker/docker-compose.yml run --service-ports --detach db
 * https://netflixtechblog.com/ready-for-changes-with-hexagonal-architecture-b315ec967749
 * https://github.com/nubank/basic-microservice-example
 * https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html
+* https://www.youtube.com/watch?v=US8QG9I1XW0
