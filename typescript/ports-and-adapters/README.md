@@ -1,6 +1,6 @@
 ### Design
 
-A typescript *functional-ish* implementation of the hexagonal architecture
+A *type safe functional* implementation of the hexagonal architecture in typescript
 
 ![ports & adapters](./docs/ports-and-adapters.png)
 
@@ -20,7 +20,7 @@ data transport between database engines and the application.
 [See more about decoding here](http://google.com)
 
 #### protocol
-lorem
+Protocols setup any required infraestructure for the communication that happens on the outer layer.
 
 #### transport
 lorem

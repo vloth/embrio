@@ -5,34 +5,36 @@ import { omit } from 'ramda'
 
 suite('todo core adapter')
 
-type UnknownTodo = { date: string; description: string; done: boolean }
-const todoFactory = factory<UnknownTodo>(faker => ({
+type UnsafeTodo = { date: string; description: string; done: boolean }
+const todoFactory = factory<UnsafeTodo>(faker => ({
   date: faker.date.recent().toISOString(),
   description: faker.lorem.sentence(),
   done: true
 }))
 
-const completedtask = todoFactory.build()
-const pendingtask = omit(['date'], todoFactory.build({ done: false }))
-
 test('decode PendingTask', async function () {
-  const decoded = decode(core.PendingTask, pendingtask)
-  expect(decoded).to.eql(pendingtask)
+  const todo = todoFactory.build({ done: false })
+  const decoded = decode(core.PendingTask, todo)
+  expect(decoded).to.eql(omit(['date'], todo))
 })
 
 test('decode CompletedTask', async function () {
-  const decoded = decode(core.CompletedTask, completedtask)
+  const todo = todoFactory.build()
+  const decoded = decode(core.CompletedTask, todo)
   expect(decoded).to.eql({
-    ...completedtask,
-    date: new Date(completedtask.date)
+    ...todo,
+    date: new Date(todo.date)
   })
 })
 
 test('decode Todo', async function () {
+  const completedtask = todoFactory.build()
+  const pendingtask = todoFactory.build({ done: false })
+
   const completedTaskDecoded = decode(core.Todo, completedtask)
   const pendingTaskDecoded = decode(core.Todo, pendingtask)
 
-  expect(pendingTaskDecoded).to.eql(pendingtask)
+  expect(pendingTaskDecoded).to.eql(omit(['date'], pendingtask))
   expect(completedTaskDecoded).to.eql({
     ...completedtask,
     date: new Date(completedtask.date)
