@@ -1,16 +1,10 @@
-import { expect, factory } from '@test'
+import { expect } from '@test'
+import { todoFactory } from '@factory/todo'
 import * as core from './core.adapter'
 import { decode } from '@adapter/codec/decode'
 import { omit } from 'ramda'
 
 suite('todo core adapter')
-
-type UnsafeTodo = { date: string; description: string; done: boolean }
-const todoFactory = factory<UnsafeTodo>(faker => ({
-  date: faker.date.recent().toISOString(),
-  description: faker.lorem.sentence(),
-  done: true
-}))
 
 test('decode PendingTask', async function () {
   const todo = todoFactory.build({ done: false })
@@ -19,7 +13,7 @@ test('decode PendingTask', async function () {
 })
 
 test('decode CompletedTask', async function () {
-  const todo = todoFactory.build()
+  const todo = todoFactory.build({ done: true })
   const decoded = decode(core.CompletedTask, todo)
   expect(decoded).to.eql({
     ...todo,
@@ -28,7 +22,7 @@ test('decode CompletedTask', async function () {
 })
 
 test('decode Todo', async function () {
-  const completedtask = todoFactory.build()
+  const completedtask = todoFactory.build({ done: true })
   const pendingtask = todoFactory.build({ done: false })
 
   const completedTaskDecoded = decode(core.Todo, completedtask)

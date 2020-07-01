@@ -1,16 +1,17 @@
 import * as t from 'io-ts'
+import { NumberFromString } from 'io-ts-types/lib/NumberFromString'
 import { decode } from './codec/decode'
 
 const Env = t.readonly(
   t.strict({
-    port: t.number,
+    port: NumberFromString,
     db: t.readonly(
       t.strict({
         password: t.string,
         host: t.string,
         user: t.string,
         database: t.string,
-        port: t.number
+        port: NumberFromString
       })
     )
   })

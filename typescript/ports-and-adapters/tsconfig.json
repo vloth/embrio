@@ -8,6 +8,8 @@
     "paths": {
         "@adapter/*": ["./src/adapter/*"],
         "@protocol/*": ["./src/protocol/*"],
+        "@core/*": ["./src/core/*"],
+        "@factory/*": ["./test/factory/*"],
         "@test": ["./test/helper"]
     },
     "noImplicitAny": true,
