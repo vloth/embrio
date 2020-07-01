@@ -2,7 +2,7 @@ extension:
   - ts
 file:
   - test/hooks/hook.ts
-  - test/hooks/service-hook.ts
+  - test/hooks/service-hook/index.ts
 require: 
   - ts-node/register/transpile-only
 ui: qunit

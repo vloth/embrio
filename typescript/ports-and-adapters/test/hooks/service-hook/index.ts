@@ -1,6 +1,7 @@
 import * as td from 'testdouble'
 import * as tc from 'testcontainers'
 import type * as EnvAdapterType from '@adapter/env'
+import { clean } from './cleaner'
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -13,7 +14,6 @@ if (String(process.env.EXT_SERVICE) === 'true') {
 
   let container: tc.StartedTestContainer
   before(async function () {
-    console.time('hook')
     this.timeout(10 * 1000)
     const [kontainer, db] = await startPgContainer()
     container = kontainer
@@ -21,14 +21,16 @@ if (String(process.env.EXT_SERVICE) === 'true') {
     Object.assign(env, { port: 0, db })
 
     await runMigrations(db)
-    console.timeEnd('hook')
+  })
+
+  afterEach(async function () {
+    const { pool } = await import('@protocol/pg')
+    await clean(pool())
   })
 
   after(async function () {
     this.timeout(15 * 1000)
-    console.time('end')
     await container?.stop()
-    console.timeEnd('end')
   })
 }
 
@@ -51,12 +53,10 @@ async function startPgContainer(): Promise<
     database: 'my-app'
   }
 
-  console.timeEnd('pg')
   return [container, db]
 }
 
 async function runMigrations(db: DbConfig) {
-  console.time('migration')
   const option = { driver: 'pg', ...db }
   const dbm = DBMigrate.getInstance(true, {
     env: 'test',
@@ -65,5 +65,4 @@ async function runMigrations(db: DbConfig) {
   dbm.silence(true)
   await dbm.registerAPIHook()
   await dbm.up()
-  console.timeEnd('migration')
 }
