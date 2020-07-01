@@ -13,10 +13,10 @@
     "db:migrate": "dotenv -- db-migrate",
     "lint": "eslint",
     "test": "mocha -r ts-node/register --recursive 'src/**/*.test.ts'",
-    "test:only": "mocha -r ts-node/register/transpile-only --watch --reporter min",
-    "test:watch": "yarn test:only --recursive 'src/**/*.test.ts'",
+    "test:watch": "mocha -r ts-node/register/transpile-only --watch --reporter min --recursive 'src/**/*.test.ts'",
     "test:cover": "nyc yarn test",
-    "test:cover:open": "open coverage/lcov-report/index.html"
+    "test:cover:open": "open coverage/lcov-report/index.html",
+    "test:integration": "EXT_SERVICE=true mocha -r ts-node/register --recursive 'test/integration/**/*.test.ts'"
   },
   "dependencies": {
     "fp-ts": "^2.6.5",
@@ -66,6 +66,7 @@
     "pino-pretty": "^4.0.0",
     "prettier": "^2.0.5",
     "source-map-support": "^0.5.19",
+    "testcontainers": "^2.14.0",
     "testdouble": "^3.16.0",
     "ts-node": "^8.10.2",
     "ts-node-dev": "^1.0.0-pre.47",

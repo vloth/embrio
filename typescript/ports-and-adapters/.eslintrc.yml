@@ -23,15 +23,12 @@ rules:
   semi:
     - error
     - never
-  indent: 
-    - error 
-    - 2
-    - { SwitchCase: 1, CallExpression: {arguments: 1} }
   max-len: 
   - error
   - { code: 80 }
-  "@typescript-eslint/explicit-function-return-type": "off"
-  "@typescript-eslint/explicit-module-boundary-types": "off"
+  "@typescript-eslint/explicit-function-return-type": off
+  "@typescript-eslint/explicit-module-boundary-types": off
+  indent: off
 overrides:
   - files: ["*.test.ts"]
     rules:

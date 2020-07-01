@@ -4,12 +4,11 @@ import td from 'testdouble'
 import chai from 'chai'
 import promisedChai from 'chai-as-promised'
 
-import type * as LoggerModule from '@protocol/logger'
+import type * as LoggerType from '@protocol/logger'
 
 chai.use(promisedChai)
 
-// global mocks
-const loggerMock = td.object<typeof LoggerModule>()
+const loggerMock = td.object<typeof LoggerType>()
 td.replace('@protocol/logger', loggerMock)
 
 before(function () {

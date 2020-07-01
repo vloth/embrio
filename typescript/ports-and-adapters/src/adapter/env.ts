@@ -1,19 +1,35 @@
 import * as t from 'io-ts'
-import { IntFromString } from 'io-ts-types/lib/IntFromString'
 import { decode } from './codec/decode'
 
 const Env = t.readonly(
   t.strict({
-    port: IntFromString
+    port: t.number,
+    db: t.readonly(
+      t.strict({
+        password: t.string,
+        host: t.string,
+        user: t.string,
+        database: t.string,
+        port: t.number
+      })
+    )
   })
 )
 
 type Env = t.TypeOf<typeof Env>
-type UnsafeEnv = { [P in keyof Required<Env>]: string | undefined }
+type Unsafe<T> = { [P in keyof Required<T>]: unknown }
+type UnsafeEnv = Unsafe<Env> & { db: Unsafe<Env['db']> }
 const decodeEnv = (unsafeEnv: UnsafeEnv) => decode(Env, unsafeEnv)
 
 // ⚠ !DANGER!
 // side-effect runs when this file is imported
 export const env = decodeEnv({
-  port: process.env.PORT
+  port: process.env.PORT,
+  db: {
+    password: process.env.PGPASSWORD,
+    host: process.env.PGHOST,
+    user: process.env.PGUSER,
+    database: process.env.PGDATABASE,
+    port: process.env.PGPORT
+  }
 })
