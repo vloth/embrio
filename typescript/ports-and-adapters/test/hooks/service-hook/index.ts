@@ -45,7 +45,7 @@ if (String(process.env.EXT_SERVICE) === 'true') {
   })
 
   after(async function () {
-    this.timeout(20 * 1000)
+    this.timeout(60 * 1000)
     await log(
       'stopping pg container & application',
       Promise.all([container?.stop(), stopApplication(this.server)]),
