@@ -52,7 +52,7 @@ export function isDecodeError(error: unknown): error is DecodeError {
  * when decoding fails due to invalid data.
  */
 export class DecodeError extends Error {
-  public name = 'DecodeError'
+  public name = '[DECODE ERROR]'
 
   constructor(either: E.Either<t.Errors, unknown>) {
     super(DecodeError.getErrorMessage(either))
@@ -60,6 +60,6 @@ export class DecodeError extends Error {
   }
 
   private static getErrorMessage(either: E.Either<t.Errors, unknown>) {
-    return `[DECODE ERROR] ${reporter(either).join('\n')}`
+    return `${reporter(either).join('\n')}`
   }
 }

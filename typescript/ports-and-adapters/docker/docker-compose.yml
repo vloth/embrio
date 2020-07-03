@@ -17,6 +17,7 @@ services:
       - ../tests:/usr/opt/app/tests
       - ../migrations:/usr/opt/app/migrations
       - ../pgconfig.json:/usr/opt/app/pgconfig.json
+      - ../.mocharc.yaml:/usr/opt/app/.mocharc.yaml
       - .env.docker:/usr/opt/app/.env
 
   db:

@@ -1,7 +1,7 @@
 A *type safe functional* implementation of the hexagonal architecture in typescript 
 [(design goals)](http://google.com)
 
-![ports & adapters](./docs/ports-and-adapters.png)
+![ports & adapters](./docs/asset/ports-and-adapters.png)
 
 #### usecase
 The usecase layer represents the business rules of the software. It encapsulates the constraints around
@@ -16,7 +16,7 @@ Adapters are responsible for converting the data between the outer layer
 `core.adapter` is the main adapter which decodes any unknown data to a core type.
 Besides the core adapter, there is also the `storage.adapter`, which handles
 data transport between database engines and the application 
-[(more about decoding)](http://google.com).
+[(more about decoding)](docs/DECODE.md).
 
 #### protocol
 Protocols setup any required infraestructure for the communication between the 
