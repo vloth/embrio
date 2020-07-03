@@ -16,8 +16,8 @@
     "test:watch": "mocha -r ts-node/register/transpile-only --watch --reporter min --recursive 'src/**/*.test.ts'",
     "test:cover": "nyc yarn test",
     "test:cover:open": "open coverage/lcov-report/index.html",
-    "test:integration": "EXT_SERVICE=true mocha -r ts-node/register --recursive 'test/integration/**/*.test.ts'",
-    "test:functional": "TS_NODE_FILES=true APP_SERVICE=true EXT_SERVICE=true mocha -r ts-node/register --recursive 'test/functional/**/*.test.ts'"
+    "test:integration": "TS_NODE_FILES=true INTEGRATION=true mocha -r ts-node/register --recursive 'test/integration/**/*.test.ts'",
+    "test:functional": "TS_NODE_FILES=true FUNCTIONAL=true mocha -r ts-node/register --recursive 'test/functional/**/*.test.ts'"
   },
   "dependencies": {
     "fp-ts": "^2.6.5",
