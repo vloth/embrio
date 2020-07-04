@@ -1,6 +1,4 @@
 A *type safe functional* implementation of the hexagonal architecture in typescript 
-[(design goals)](http://google.com)
-
 ![ports & adapters](./docs/asset/ports-and-adapters.png)
 
 #### usecase

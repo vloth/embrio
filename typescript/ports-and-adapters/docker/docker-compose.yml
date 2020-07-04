@@ -13,8 +13,6 @@ services:
       - "3000:3000"
     volumes:
       - ../src:/usr/opt/app/src
-      - ../types:/usr/opt/app/types
-      - ../tests:/usr/opt/app/tests
       - ../migrations:/usr/opt/app/migrations
       - ../pgconfig.json:/usr/opt/app/pgconfig.json
       - ../.mocharc.yaml:/usr/opt/app/.mocharc.yaml
