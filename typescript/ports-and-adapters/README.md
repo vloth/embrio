@@ -53,7 +53,7 @@ $ yarn test
 $ yarn test:watch
 
 # in a new window watch build with noEmit
-$ yarn build --noEmit --watch
+$ yarn build:watch
 
 # run code coverage
 $ yarn test:cover

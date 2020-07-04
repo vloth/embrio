@@ -8,6 +8,7 @@
     "start": "dotenv -- tsnd --rs false --no-notify src/index.ts | pino-pretty",
     "start:prod": "node src",
     "build": "tsc",
+    "build:watch": "yarn build --noEmit --watch",
     "build:clean": "find src test -type f -name '*.js' -exec rm {} \\;",
     "db:build": "dotenv -- pgtyped -c pgconfig.json",
     "db:migrate": "dotenv -- db-migrate",
