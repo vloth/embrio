@@ -12,12 +12,12 @@
     "db:build": "dotenv -- pgtyped -c pgconfig.json",
     "db:migrate": "dotenv -- db-migrate",
     "lint": "eslint",
-    "test": "TS_NODE_FILES=true mocha -r ts-node/register --recursive 'src/**/*.test.ts'",
-    "test:watch": "mocha -r ts-node/register/transpile-only --watch --reporter min --recursive 'src/**/*.test.ts'",
+    "test": "mocha --recursive 'src/**/*.test.ts'",
+    "test:watch": "mocha --watch --reporter min --recursive 'src/**/*.test.ts'",
     "test:cover": "nyc yarn test",
     "test:cover:open": "open coverage/lcov-report/index.html",
-    "test:integration": "TS_NODE_FILES=true INTEGRATION=true mocha -r ts-node/register --recursive 'test/integration/**/*.test.ts'",
-    "test:functional": "TS_NODE_FILES=true FUNCTIONAL=true mocha -r ts-node/register --recursive 'test/functional/**/*.test.ts'"
+    "test:integration": "INTEGRATION=true mocha --recursive 'test/integration/**/*.test.ts'",
+    "test:functional": "FUNCTIONAL=true mocha --recursive 'test/functional/**/*.test.ts'"
   },
   "dependencies": {
     "fp-ts": "^2.6.5",

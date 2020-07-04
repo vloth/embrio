@@ -57,6 +57,12 @@ $ yarn test:watch
 # in a new window watch build with noEmit
 $ yarn build --noEmit --watch
 
+# run code coverage
+$ yarn test:cover
+
+# open html report in default browser
+$ yarn test:cover:open
+
 # integration tests
 $ yarn test:integration
 
