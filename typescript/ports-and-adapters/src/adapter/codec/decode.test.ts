@@ -1,6 +1,5 @@
-import { expect } from '@test'
-import { decode, DecodeError } from '@adapter/codec/decode'
 import * as t from 'io-ts'
+import { decode, DecodeError } from '@adapter/codec/decode'
 
 suite('adapter decoder')
 

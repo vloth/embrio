@@ -1,4 +1,3 @@
-import { expect } from '@test'
 import * as storage from '@core/todo/storage.adapter'
 import chai from 'chai'
 

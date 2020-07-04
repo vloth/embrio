@@ -1,4 +1,4 @@
-import { factory } from '@test'
+import { factory } from './index'
 import { Id } from '@adapter/id'
 
 export const base = factory<{ description: string; done: boolean }>(faker => ({
@@ -6,15 +6,11 @@ export const base = factory<{ description: string; done: boolean }>(faker => ({
   description: faker.lorem.sentence()
 }))
 
-export const todoFactory = base.combine(
-  factory<{ date: string }>(faker => ({
-    date: faker.date.recent().toISOString()
-  }))
-)
+export const dateString = factory<{ date: string }>(faker => ({
+  date: faker.date.recent().toISOString()
+}))
 
-export const todoDbFactory = base.combine(
-  factory<{ id: Id; date: Date | null }>(faker => ({
-    id: faker.random.number(),
-    date: faker.date.recent()
-  }))
-)
+export const db = factory<{ id: Id; date: Date | null }>(faker => ({
+  id: faker.random.number(),
+  date: faker.date.recent()
+}))

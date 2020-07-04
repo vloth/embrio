@@ -1,7 +1,6 @@
-import { expect } from '@test'
+import * as t from 'io-ts'
 import { decode } from '@adapter/codec/decode'
 import { identified } from '@adapter/id'
-import * as t from 'io-ts'
 
 suite('adapter id')
 

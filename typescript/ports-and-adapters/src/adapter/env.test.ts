@@ -1,4 +1,3 @@
-import { expect, prepare } from '@test'
 import type * as Env from '@adapter/env'
 
 suite('adapter env')

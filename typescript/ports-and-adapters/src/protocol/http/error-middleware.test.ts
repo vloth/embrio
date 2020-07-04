@@ -1,4 +1,3 @@
-import { td } from '@test'
 import * as t from 'io-ts'
 import { Context } from 'koa'
 import { errorHandler } from './error-middleware'

@@ -79,7 +79,6 @@
     "@adapter": "./src/adapter/",
     "@protocol": "./src/protocol/",
     "@factory": "./test/factory/",
-    "@core": "./src/core/",
-    "@test": "./test/helper"
+    "@core": "./src/core/"
   }
 }

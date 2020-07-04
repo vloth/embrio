@@ -54,6 +54,9 @@ $ yarn test
 # watch unit tests (transpile only)
 $ yarn test:watch
 
+# in a new window watch build with noEmit
+$ yarn build --noEmit --watch
+
 # integration tests
 $ yarn test:integration
 
