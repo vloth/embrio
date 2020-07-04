@@ -23,5 +23,5 @@ test('set bad request on decode error', async function () {
 
   await errorHandler(ctx, next)
 
-  td.verify(ctx.badRequest(td.matchers.contains('[DECODE ERROR')))
+  td.verify(ctx.badRequest('Expecting number but instead got: "23"'))
 })

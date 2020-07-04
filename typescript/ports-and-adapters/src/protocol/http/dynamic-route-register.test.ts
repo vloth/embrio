@@ -1,4 +1,4 @@
-import { td, prepare } from '@test'
+import { td, prepare, expect } from '@test'
 import type Koa from 'koa'
 import type * as ModuleType from './dynamic-route-register'
 import Router from 'koa-router'
@@ -13,9 +13,7 @@ const registerRoutes = load<typeof ModuleType>('./dynamic-route-register')
 test('log error on mismatching router', async function () {
   const app = td.object<Koa>()
 
-  registerRoutes(app, ['./routeA'])
-
-  td.verify(this.logger.error(td.matchers.anything()))
+  expect(() => registerRoutes(app, ['./routeA'])).to.throw()
 })
 
 test('register routes in app', async function () {
@@ -32,7 +30,6 @@ test('log error on invalid router structure', async function () {
   const app = td.object<Koa>()
 
   replace('./routeA', { router: { foo: 'bar' } })
-  registerRoutes(app, ['./routeA'])
 
-  td.verify(this.logger.error(td.matchers.anything()))
+  expect(() => registerRoutes(app, ['./routeA'])).to.throw()
 })

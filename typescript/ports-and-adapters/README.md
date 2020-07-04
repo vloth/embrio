@@ -45,6 +45,22 @@ $ docker-compose -f docker/docker-compose.yml logs -f app
 $ docker-compose -f docker/docker-compose.yml run --service-ports --detach db
 ```
 
+### Tests
+
+```bash
+# unit tests
+$ yarn test
+
+# watch unit tests (transpile only)
+$ yarn test:watch
+
+# integration tests
+$ yarn test:integration
+
+# functional tests
+$ yarn test:functional
+```
+
 ### References & Inspiration:
 * https://netflixtechblog.com/ready-for-changes-with-hexagonal-architecture-b315ec967749
 * https://github.com/nubank/basic-microservice-example

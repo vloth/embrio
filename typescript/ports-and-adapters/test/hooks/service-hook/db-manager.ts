@@ -8,7 +8,7 @@ type DbConfig = typeof EnvAdapterType.env.db
 
 let container: tc.StartedTestContainer
 export async function startPgContainer(): Promise<DbConfig> {
-  console.log('starting pg container...')
+  console.log('  starting pg container...')
   container = await new tc.GenericContainer('postgres')
     .withEnv('POSTGRES_PASSWORD', 'postgres')
     .withEnv('POSTGRES_USER', 'postgres')
@@ -16,7 +16,7 @@ export async function startPgContainer(): Promise<DbConfig> {
     .withExposedPorts(5432)
     .start()
 
-  console.log('pg container started')
+  console.log('  pg container started')
   return {
     host: container.getContainerIpAddress(),
     port: container.getMappedPort(5432),
@@ -31,7 +31,7 @@ export function stopPgContainer() {
 }
 
 export async function runMigrations(db: DbConfig) {
-  console.log('running migrations...')
+  console.log('  running migrations...')
   const option = { driver: 'pg', ...db }
   const dbm = DBMigrate.getInstance(true, {
     env: 'test',
@@ -40,7 +40,7 @@ export async function runMigrations(db: DbConfig) {
   dbm.silence(true)
   await dbm.registerAPIHook()
   await dbm.up()
-  console.log('database migrated')
+  console.log('  database migrated')
 }
 
 const skipTables = ['migrations']
