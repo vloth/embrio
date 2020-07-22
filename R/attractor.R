@@ -3,7 +3,7 @@ library(ggplot2)
 library(dplyr)
  
 opt = theme(legend.position  = "none",
-            panel.background = element_rect(fill="#333333"),
+            panel.background = element_rect(fill="white"),
             axis.ticks       = element_blank(),
             panel.grid       = element_blank(),
             axis.title       = element_blank(),
@@ -22,12 +22,12 @@ cppFunction('DataFrame createTrajectory(int n, double x0, double y0,
             ')
  
 a=-1.24458046630025
-b=-1.75191834103316 
+b=1.0491834103318 
 c=-1.71590817030519 
-d=2.0866735205056
+d=1.0866735205056
  
 df=createTrajectory(10000000, 0, 0, a, b, c, d)
  
 png("attractor.png", units="px", width=1600, height=1600, res=200)
-ggplot(df, aes(x, y)) + geom_point(color="white", shape=46, alpha=.01) + opt
+ggplot(df, aes(x, y)) + geom_point(color="black", shape=46, alpha=.01) + opt
 dev.off()
