@@ -1,6 +1,0 @@
-node_modules
-docker
-src/**/*.js
-coverage
-.nyc_output
-.env
