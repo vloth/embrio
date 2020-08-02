@@ -10,4 +10,5 @@ type IEventHubClient =
 type EventHub() =
    inherit Hub<IEventHubClient>()
 
-   member this.Send = this.Clients.All.ReceiveEvent
+   member __.SendEvent(event: string) =
+       __.Clients.Others.ReceiveEvent event

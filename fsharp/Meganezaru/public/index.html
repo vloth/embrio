@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>The HTML5 Herald</title>
+</head>
+<body>
+  <p>cccc</p>
+  <script src="https://unpkg.com/@microsoft/signalr@3.1.6/dist/browser/signalr.min.js"></script>
+  <script>
+      var connection = new signalR.HubConnectionBuilder().withUrl("/hub").build();
+      connection.on("ReceiveEvent", function (event) {
+          console.log('received: ', event)
+      });
+      
+      connection.start().then(function () {
+          console.log('started')
+      }).catch(function (err) {
+          return console.error(err.toString());
+      });
+      
+      window.message = function(event) {
+        connection.invoke("SendEvent", event).catch(function (err) {
+          return console.error(err.toString());
+        });
+      }
+  </script>
+</body>
+</html>

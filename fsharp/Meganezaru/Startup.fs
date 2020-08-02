@@ -7,20 +7,23 @@ open Microsoft.Extensions.DependencyInjection
 open Microsoft.Extensions.Hosting
 
 type Startup private () =
-    new (configuration: IConfiguration) as this =
-        Startup () then
-        this.Configuration <- configuration
 
-    member this.ConfigureServices(services: IServiceCollection) =
+    new (configuration: IConfiguration) as __ =
+        Startup () then
+        __.Configuration <- configuration
+
+    member __.ConfigureServices(services: IServiceCollection) =
         services.AddSignalR () |> ignore
         services.AddControllers () |> ignore
 
-    member this.Configure(app: IApplicationBuilder, env: IWebHostEnvironment) =
+    member __.Configure(app: IApplicationBuilder, env: IWebHostEnvironment) =
         if (env.IsDevelopment()) then
             app.UseDeveloperExceptionPage () |> ignore
 
+        app.UseDefaultFiles() |> ignore
+        app.UseStaticFiles() |> ignore
+        
         app.UseRouting () |> ignore
-
         app.UseAuthorization () |> ignore
 
         app.UseEndpoints(fun endpoints ->
