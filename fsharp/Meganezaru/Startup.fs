@@ -22,6 +22,9 @@ type Startup private () =
 
         app.UseDefaultFiles() |> ignore
         app.UseStaticFiles() |> ignore
+        app.UseCors(fun b -> b.AllowAnyMethod().AllowAnyHeader()
+                              .WithOrigins("http://localhost:3000", "http://localhost:3000").AllowCredentials() |> ignore
+            ) |> ignore
         
         app.UseRouting () |> ignore
         app.UseAuthorization () |> ignore

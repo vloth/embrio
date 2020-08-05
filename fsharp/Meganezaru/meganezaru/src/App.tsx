@@ -1,6 +1,7 @@
 import React from 'react'
 import { Client as Styletron } from 'styletron-engine-atomic'
 import { Provider as StyletronProvider } from 'styletron-react'
+import { HubContext } from './hook/useHub'
 import { LightTheme, BaseProvider } from 'baseui'
 import { Header } from './components/Header'
 import { LogsList } from './components/Logs/List'
@@ -12,7 +13,9 @@ export function App() {
     <StyletronProvider value={engine}>
       <BaseProvider theme={LightTheme}>
         <Header />
-        <LogsList />
+        <HubContext.Provider>
+          <LogsList />
+        </HubContext.Provider>
       </BaseProvider>
     </StyletronProvider>
   )
