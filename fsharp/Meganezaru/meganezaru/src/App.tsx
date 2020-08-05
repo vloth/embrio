@@ -3,7 +3,7 @@ import { Client as Styletron } from 'styletron-engine-atomic'
 import { Provider as StyletronProvider } from 'styletron-react'
 import { LightTheme, BaseProvider } from 'baseui'
 import { Header } from './components/Header'
-import { LogsList } from './components/LogsList'
+import { LogsList } from './components/Logs/List'
 
 const engine = new Styletron()
 
