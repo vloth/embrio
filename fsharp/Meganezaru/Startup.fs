@@ -1,5 +1,4 @@
 namespace Meganezaru
-
 open Microsoft.AspNetCore.Builder
 open Microsoft.AspNetCore.Hosting
 open Microsoft.Extensions.Configuration
@@ -29,16 +28,17 @@ type Startup private () =
 
         app.UseDefaultFiles() |> ignore
         app.UseStaticFiles() |> ignore
+
         app.UseCors(fun b -> b.AllowAnyMethod().AllowAnyHeader()
-                              .WithOrigins("http://localhost:3000", "http://localhost:3000").AllowCredentials() |> ignore
-            ) |> ignore
-        
+                              .WithOrigins("http://localhost:3000", "http://localhost:3000")
+                              .AllowCredentials() |> ignore) |> ignore
+
         app.UseRouting () |> ignore
         app.UseAuthorization () |> ignore
 
         app.UseEndpoints(fun endpoints ->
             endpoints.MapControllers () |> ignore
-            endpoints.MapHub<Hub.EventHub> "/hub" |> ignore
+            endpoints.MapHub<Event.Hub> "/hub" |> ignore
             ) |> ignore
 
         lifetime.ApplicationStarted.Register(fun () -> 

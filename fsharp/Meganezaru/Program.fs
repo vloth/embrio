@@ -1,5 +1,4 @@
 namespace Meganezaru
-
 open Microsoft.AspNetCore.Hosting
 open Microsoft.Extensions.Hosting
 open System.IO
@@ -17,5 +16,6 @@ module Program =
 
     [<EntryPoint>]
     let main args =
+        let w = Watcher.File.watchEvents "temp"
         CreateHostBuilder(args).Build().Run()
         0
