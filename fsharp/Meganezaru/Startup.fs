@@ -5,6 +5,8 @@ open Microsoft.AspNetCore.Hosting
 open Microsoft.Extensions.Configuration
 open Microsoft.Extensions.DependencyInjection
 open Microsoft.Extensions.Hosting
+open Microsoft.Extensions.Logging;
+open Microsoft.AspNetCore.Hosting.Server.Features
 
 type Startup private () =
 
@@ -15,8 +17,13 @@ type Startup private () =
     member __.ConfigureServices(services: IServiceCollection) =
         services.AddSignalR () |> ignore
         services.AddControllers () |> ignore
+        services.AddLogging (fun b ->
+               b.AddFilter("Microsoft", LogLevel.Warning)
+                .AddConsole() |> ignore) |> ignore
 
-    member __.Configure(app: IApplicationBuilder, env: IWebHostEnvironment) =
+    member __.Configure(app: IApplicationBuilder,
+        env: IWebHostEnvironment,
+        lifetime: IHostApplicationLifetime) =
         if (env.IsDevelopment()) then
             app.UseDeveloperExceptionPage () |> ignore
 
@@ -31,7 +38,13 @@ type Startup private () =
 
         app.UseEndpoints(fun endpoints ->
             endpoints.MapControllers () |> ignore
-            endpoints.MapHub<EventHub> "/hub" |> ignore
+            endpoints.MapHub<Hub.EventHub> "/hub" |> ignore
             ) |> ignore
+
+        lifetime.ApplicationStarted.Register(fun () -> 
+                                            let addresses = app.ServerFeatures.Get<IServerAddressesFeature>()
+                                            let urls = addresses.Addresses |> String.concat ", "
+                                            printfn "Application started at: %s" urls
+                                            ) |> ignore
 
     member val Configuration : IConfiguration = null with get, set
