@@ -1,17 +1,3 @@
-namespace Meganezaru.Watcher
-open System.IO
-open Microsoft.Extensions.FileProviders
-
-module File =
-    let watchEvents path =
-        let watcher = new PhysicalFileProvider(Path.Combine (Directory.GetCurrentDirectory(), path))
-        let rec watch =  fun () ->
-            let token = watcher.Watch "*.event"
-            let notify = System.Action<obj>(fun (obj) -> printfn "changed! %O" obj
-                                                         watch ())
-            token.RegisterChangeCallback (notify, Unchecked.defaultof<obj>) |> ignore
-        watch ()
-
 namespace Meganezaru.Event
 open System.Threading.Tasks;
 open Microsoft.AspNetCore.SignalR

@@ -16,6 +16,5 @@ module Program =
 
     [<EntryPoint>]
     let main args =
-        let w = Watcher.File.watchEvents "temp"
         CreateHostBuilder(args).Build().Run()
         0
