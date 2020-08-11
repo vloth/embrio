@@ -1,28 +1,55 @@
 import * as React from 'react'
-import { HubContext } from '../../hook/useHub'
+import { useStyletron } from 'baseui'
+import { Notification, KIND } from 'baseui/notification'
+/* import { StyledSpinnerNext } from 'baseui/spinner' */
+import { useLogsHub } from '../../hook/useLogsHub'
 import { Log } from './Log'
 import { Detail } from './Detail'
 import { Log as LogType } from './support/type'
 
 export function LogsList() {
-  const { connection, error } = HubContext.useConnection()
+  const [error, logs] = useLogsHub()
   const [focusedLog, focus] = React.useState<LogType | null>(null)
 
-  React.useEffect(() => {
-    connection?.on('ReceiveEvent', console.log)
-  })
+  if (error)
+    return (
+      <Notification kind={KIND.negative}>
+        {() => 'This is a notification.'}
+      </Notification>
+    )
+
+  console.log(logs)
+
+  /* if (!connection) return <StyledSpinnerNext /> */
 
   return (
     <React.Fragment>
-      <ul>
-        <Log type="INFO" onClick={() => focus({ type: 'INFO', log: 'bar' })}>
-          aksdjs
-        </Log>
-        <Log type="FATAL">aksdjs</Log>
-        <Log type="TRACE">aksdjs</Log>
-        <Log>aksdjs</Log>
-      </ul>
+      <Ul>
+        {logs.map((log) => (
+          <Log
+            key={log}
+            type="INFO"
+            onClick={() => focus({ type: 'INFO', log })}
+          >
+            {log}
+          </Log>
+        ))}
+      </Ul>
       <Detail log={focusedLog} />
     </React.Fragment>
+  )
+}
+
+function Ul({ children }: { children: Array<JSX.Element> }) {
+  const [css] = useStyletron()
+
+  return (
+    <ul
+      className={css({
+        paddingLeft: '0'
+      })}
+    >
+      {children}
+    </ul>
   )
 }

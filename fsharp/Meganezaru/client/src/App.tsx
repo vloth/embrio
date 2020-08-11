@@ -5,6 +5,7 @@ import { HubContext } from './hook/useHub'
 import { LightTheme, BaseProvider } from 'baseui'
 import { Header } from './components/Header'
 import { LogsList } from './components/Logs/List'
+import { Center } from './layouts/Center'
 
 const engine = new Styletron()
 
@@ -13,9 +14,11 @@ export function App() {
     <StyletronProvider value={engine}>
       <BaseProvider theme={LightTheme}>
         <Header />
-        <HubContext.Provider>
-          <LogsList />
-        </HubContext.Provider>
+        <Center>
+          <HubContext.Provider>
+            <LogsList />
+          </HubContext.Provider>
+        </Center>
       </BaseProvider>
     </StyletronProvider>
   )
