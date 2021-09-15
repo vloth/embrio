@@ -1,0 +1,15 @@
+name: fe-arch
+root: .
+
+windows:
+  - fe-arch:
+      layout: 4c56,180x46,0,0{90x46,0,0,10,89x46,91,0[89x13,91,0,12,89x16,91,14,13,89x15,91,31,14]}
+      panes:
+        - editor:
+          - nvim
+        - shell:
+          - yarn workspace shell start
+        - candidate:
+          - yarn workspace candidate start
+        - shared:
+          - yarn workspace shared start

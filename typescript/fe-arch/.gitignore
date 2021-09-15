@@ -1,0 +1,26 @@
+# Compiled output
+**/dist
+
+# Dependencies
+node_modules/
+
+# Yarn Zero-installs
+.yarn/*
+!.yarn/cache
+!.yarn/unplugged
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
+
+# Logs
+yarn-debug.log*
+yarn-error.log
+
+# Cache
+/.cache
+.eslintcache
+
+# macOS
+.DS_Store
