@@ -1,0 +1,4 @@
+{:webserver/port   #long #or [#env PORT 5001]
+ :database/id      "default"
+ :database/backend #keyword #or [#env DB_BACKEND :level]
+ :database/path    #or [#env DB_PATH "tasks-db"]}

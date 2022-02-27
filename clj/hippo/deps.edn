@@ -1,0 +1,40 @@
+{:paths ["src" "resources"]
+ :deps {aero/aero {:mvn/version "1.1.6"}
+        clj-http/clj-http {:mvn/version "3.12.3"}
+        org.clojure/clojure {:mvn/version "1.10.3"}
+        com.fzakaria/slf4j-timbre {:mvn/version "0.3.21"}
+        com.stuartsierra/component {:mvn/version "1.0.0"}
+        com.taoensso/timbre {:mvn/version "5.1.2"}
+        io.pedestal/pedestal.jetty  {:mvn/version "0.5.10"}
+        io.pedestal/pedestal.service  {:mvn/version "0.5.10"}
+        metosin/malli {:mvn/version "0.8.3"}
+        metosin/muuntaja {:mvn/version "0.6.8"}
+        metosin/reitit {:mvn/version "0.5.16"}
+        metosin/reitit-pedestal {:mvn/version "0.5.16"}
+        metosin/reitit-swagger {:mvn/version "0.5.16"}
+        metosin/reitit-swagger-ui {:mvn/version "0.5.16"}
+        org.slf4j/slf4j-api {:mvn/version "1.7.32"}
+        overtone/at-at {:mvn/version "1.2.0"}
+        io.replikativ/datahike {:mvn/version "0.4.1484"}
+        io.replikativ/datahike-leveldb {:mvn/version "0.1.0"}}
+ :aliases
+ {:test {:extra-paths ["test"]
+         :extra-deps  {lambdaisland/kaocha {:mvn/version "1.60.977"}
+                       lambdaisland/kaocha-cloverage {:mvn/version "1.0.75"}
+                       nubank/matcher-combinators {:mvn/version "3.3.1"}
+                       nubank/state-flow {:mvn/version "5.14.0"}}
+         :main-opts   ["-m" "kaocha.runner"]}
+
+  :clojure-lsp {:replace-deps {com.github.clojure-lsp/clojure-lsp {:mvn/version "2022.01.03-19.46.10"}}
+                :main-opts ["-m" "clojure-lsp.main"]}
+
+  :uberjar {:replace-deps {com.github.seancorfield/depstar {:mvn/version "2.1.303"}}
+            :exec-fn hf.depstar/uberjar
+            :exec-args {:jar "service.jar"
+                        :aot true
+                        :main-class hippo.server}}
+
+  :nrepl {:extra-paths ["dev"]
+          :extra-deps {cider/cider-nrepl {:mvn/version "0.28.0"}
+                       org.clojure/tools.namespace {:mvn/version "1.2.0"}}
+          :main-opts ["-m" "nrepl.cmdline" "--middleware" "[cider.nrepl/cider-middleware]"]}}}

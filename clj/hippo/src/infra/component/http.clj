@@ -1,0 +1,69 @@
+(ns infra.component.http
+  (:require [clj-http.client :as http]
+            [clj-http.util :as http-util]
+            [com.stuartsierra.component :as component]
+            [infra.logs :as logs]))
+
+(def HttpRequestInput
+  [:map
+   [:url string?]
+   [:method [:enum :get :head :post :put :delete :options :copy :move :patch]]])
+
+(defn request-fn
+  {:malli/schema [:=> [:cat HttpRequestInput [:* :any] [:* :any]] :any]}
+  [{:keys [url] :as req} & [respond raise]]
+  (http/check-url! url)
+  (if (http-util/opt req :async)
+    (if (some nil? [respond raise])
+      (throw (IllegalArgumentException.
+              "If :async? is true, you must pass respond and raise"))
+      (http/request (dissoc req :respond :raise) respond raise))
+    (http/request req)))
+
+(defprotocol HttpProvider
+  (request
+    [self request-input]))
+
+(defrecord Http [_]
+  component/Lifecycle
+  (start [this] this)
+  (stop  [this] this)
+
+  HttpProvider
+  (request
+    [_self {:keys [method url] :as request-input}]
+    (logs/log :info :http-out-message :method method :url url)
+    (let [start-time (System/currentTimeMillis)
+          {:keys [status] :as response} (request-fn request-input)
+          end-time (System/currentTimeMillis)
+          total-time (- start-time end-time)]
+      (logs/log :info :http-out-message-response :response-time-millis total-time
+                :status status)
+      response)))
+
+(defn new-http [] (map->Http {}))
+
+(defrecord HttpMock [responses requests]
+  component/Lifecycle
+  (start [this] this)
+  (stop  [this] this)
+
+  HttpProvider
+  (request
+    [_self {:keys [url] :as req}]
+    (swap! requests merge
+           (assoc req :instant (System/currentTimeMillis)))
+    (get-in @responses
+            [url]
+            {:status 500
+             :body "Response not set in mocks!"})))
+
+#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
+(defn reset-responses! [added-responses {:keys [responses]}]
+  (reset! responses added-responses))
+
+#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
+(defn new-http-mock
+  [mocked-responses]
+  (map->HttpMock {:responses (atom mocked-responses)
+                  :requests (atom [])}))
